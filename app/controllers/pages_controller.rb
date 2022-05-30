@@ -16,13 +16,13 @@ class PagesController < ApplicationController
     @title = @elements2.text.strip
     @elements3 = doc.search('.ingredients-section')
     @ingredients = @elements3.text.strip
-@elements4 = doc.search('.recipe-instructions')
-@instructions = @elements4.text.strip
+    @elements4 = doc.search('.recipe-instructions')
+    @instructions = @elements4.text.strip
     @recipe = {
       title: @title,
       preptime: @preptime,
       ingredients: @ingredients,
-      instructions: @instructions,
+      instructions: @instructions
     }
     #@preptime
   end
