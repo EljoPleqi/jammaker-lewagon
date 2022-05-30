@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_30_104951) do
+ActiveRecord::Schema.define(version: 2022_05_30_110050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 2022_05_30_104951) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.string "spotify_playlist_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "recipies_id"
+    t.index ["recipies_id"], name: "index_playlists_on_recipies_id"
   end
 
   create_table "recipe_instructions", force: :cascade do |t|
@@ -52,6 +60,7 @@ ActiveRecord::Schema.define(version: 2022_05_30_104951) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "playlists", "recipies", column: "recipies_id"
   add_foreign_key "recipe_instructions", "instructions", column: "instructions_id"
   add_foreign_key "recipe_instructions", "recipies", column: "recipies_id"
   add_foreign_key "recipies", "users"
