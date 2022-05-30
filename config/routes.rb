@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get "/scraper", to: "pages#scraper"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :dashboard, only: [:show] do
-   resources :recipies, only: [ :index, :create,:destroy ]
+  resources :dashboard, only: [:show]
+  resources :recipes, only: [ :index, :create,:destroy ] do
     resources :instructions, only: [ :new, :create ]
   end
 
-  resources :recipies, only: [:show]
+  resources :recipes, only: [:show]
 end
