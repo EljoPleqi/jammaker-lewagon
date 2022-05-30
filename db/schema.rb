@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_05_30_100200) do
-=======
-ActiveRecord::Schema.define(version: 2022_05_30_110050) do
->>>>>>> 0d736684f5e0771f613f3ac4001cf7804db9d956
+ActiveRecord::Schema.define(version: 2022_05_30_133348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +44,7 @@ ActiveRecord::Schema.define(version: 2022_05_30_110050) do
     t.string "ingredients"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_recipies_on_user_id"
   end
 
