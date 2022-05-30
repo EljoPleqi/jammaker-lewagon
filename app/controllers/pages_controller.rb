@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   end
 
   def scraper
-    filepath = "/home/same/code/samemah24/jammaker/chicken.html"
+    filepath = "/Users/phoenix/code/FabioDG7/jammaker/app/controllers/chicken.html"
     # 1. We get the HTML page content
     html_content = File.open(filepath)
     # 2. We build a Nokogiri document from this file
@@ -14,16 +14,15 @@ class PagesController < ApplicationController
     @preptime = @elements[2].text.strip
     @elements2 = doc.search('.headline')
     @title = @elements2.text.strip
-    @elements3 = doc.search('.ingredients-item-name')
+    @elements3 = doc.search('.ingredients-section')
     @ingredients = @elements3.text.strip
-    @elements4 = doc.search('.paragraph p')
+    @elements4 = doc.search('.recipe-instructions')
     @instructions = @elements4.text.strip
     @recipe = {
       title: @title,
       preptime: @preptime,
       ingredients: @ingredients,
       instructions: @instructions
-
     }
     #@preptime
   end
