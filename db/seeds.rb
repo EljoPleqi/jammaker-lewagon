@@ -21,6 +21,9 @@ def scraper(url)
   doc = Nokogiri::HTML(html_content)
   @elements = doc.search('.recipe-meta-item-body')
   @preptime = @elements[2].text.strip
+  hour = @preptime.match(/(\d+) hr/).to_i * 60
+  min = @preptime.match(/(\d+) min/).to_i
+  @preptime = hour + min
   @elements2 = doc.search('.headline')
   @title = @elements2.text.strip
   @elements3 = doc.search('.ingredients-section')

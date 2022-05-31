@@ -20,6 +20,8 @@ class RecipesController < ApplicationController
   def destroy
   end
 
+  private
+
   def scraper(url)
     # 1. We get the HTML page content
     html_content = URI.open(url).read
@@ -27,6 +29,9 @@ class RecipesController < ApplicationController
     doc = Nokogiri::HTML(html_content)
     @elements = doc.search('.recipe-meta-item-body')
     @preptime = @elements[2].text.strip
+    hour = @preptime.match(/(\d+) hr/).to_i * 60
+    min = @preptime.match(/(\d+) min/).to_i
+    @preptime = hour + min
     @elements2 = doc.search('.headline')
     @title = @elements2.text.strip
     @elements3 = doc.search('.ingredients-section')
@@ -38,10 +43,6 @@ class RecipesController < ApplicationController
     @recipe.ingredients = @ingredients
     @recipe.instructions = @instructions
   end
-
-  private
-
-
 
   def recipes_params
     params.require(:recipe).permit(:url)
