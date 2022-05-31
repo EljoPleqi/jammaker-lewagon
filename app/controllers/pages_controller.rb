@@ -1,6 +1,9 @@
 require 'rspotify'
+require 'json'
 
 class PagesController < ApplicationController
+  RSpotify.authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+
   skip_before_action :authenticate_user!, only: [ :home ]
 
   def home
@@ -29,15 +32,32 @@ class PagesController < ApplicationController
     #@preptime
   end
 
+  def populate_playlist
+    @playlist = []
+    prep_time = 15
+    playlist_time = 0
+
+  until playlist_time == prep_time do
+      @playlist << fetch
+      playlist_time += 1
+  end
+  @playlist
+
+  end
+
   def fetch
 
     RSpotify.raw_response = true
-    @result = RSpotify::Artist.search(query)
-    # @result = query[:query]
+    response = RSpotify::Recommendations.generate(seed_genres: ['blues', 'country'])
+    results_serialized = JSON.parse(response)
+    results = results_serialized.to_hash
+    result = results["tracks"][rand(20)]
+    @result = result["album"]["href"]
+
   end
 
   def query
-    @query = params[:query][:query]
+    @query = params[:query]
 
   end
 

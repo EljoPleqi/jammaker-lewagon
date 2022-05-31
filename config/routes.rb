@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
   get "/scraper", to: "pages#scraper"
-  post "/query", to: 'pages#fetch'
+  post "/query", to: 'pages#populate_playlist'
   get "/query", to: 'pages#query'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
