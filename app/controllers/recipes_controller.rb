@@ -20,8 +20,6 @@ class RecipesController < ApplicationController
   def destroy
   end
 
-  private
-
   def scraper(url)
     # 1. We get the HTML page content
     html_content = URI.open(url).read
@@ -40,6 +38,10 @@ class RecipesController < ApplicationController
     @recipe.ingredients = @ingredients
     @recipe.instructions = @instructions
   end
+
+  private
+
+
 
   def recipes_params
     params.require(:recipe).permit(:url)
