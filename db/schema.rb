@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2022_05_30_152510) do
-
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,17 +25,17 @@ ActiveRecord::Schema.define(version: 2022_05_30_152510) do
     t.string "spotify_playlist_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "recipes_id"
-    t.index ["recipes_id"], name: "index_playlists_on_recipes_id"
+    t.bigint "recipies_id"
+    t.index ["recipies_id"], name: "index_playlists_on_recipies_id"
   end
 
   create_table "recipe_instructions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "recipes_id"
+    t.bigint "recipies_id"
     t.bigint "instructions_id"
     t.index ["instructions_id"], name: "index_recipe_instructions_on_instructions_id"
-    t.index ["recipes_id"], name: "index_recipe_instructions_on_recipes_id"
+    t.index ["recipies_id"], name: "index_recipe_instructions_on_recipies_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -51,6 +49,16 @@ ActiveRecord::Schema.define(version: 2022_05_30_152510) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "url"
     t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
+
+  create_table "recipies", force: :cascade do |t|
+    t.string "title"
+    t.integer "duration"
+    t.string "ingredients"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_recipies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,8 +76,9 @@ ActiveRecord::Schema.define(version: 2022_05_30_152510) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "playlists", "recipes", column: "recipes_id"
+  add_foreign_key "playlists", "recipies", column: "recipies_id"
   add_foreign_key "recipe_instructions", "instructions", column: "instructions_id"
-  add_foreign_key "recipe_instructions", "recipes", column: "recipes_id"
+  add_foreign_key "recipe_instructions", "recipies", column: "recipies_id"
   add_foreign_key "recipes", "users"
+  add_foreign_key "recipies", "users"
 end
