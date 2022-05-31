@@ -1,1 +1,32 @@
 // Specific CSS for your home-page
+
+.hero {
+  height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1488116593952-937c38246bbe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1610&q=80");
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  h1 {
+    margin-left: 3rem;
+    color: white;
+    font-family: 'Lexend Deca', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 5rem;
+  }
+}
+ button {
+   background-color: #1DB854;
+   width: 14rem;
+   height: 3rem;
+   padding: 0.7rem 1.5rem;
+   color: white;
+   margin-left: 3rem;
+   position: absolute;
+   background-image: url('/assets/Spotify_Icon_RGB_White.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: 10% 10%;
+    }
