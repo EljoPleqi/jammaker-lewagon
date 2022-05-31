@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Jammaker
   class Application < Rails::Application
+    RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+
     config.generators do |generate|
       generate.assets false
       generate.helper false

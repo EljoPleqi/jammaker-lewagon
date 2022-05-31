@@ -69,4 +69,4 @@ gem 'omniauth-spotify'
 
 gem 'omniauth-rails_csrf_protection'
 
-
+gem 'rspotify'
