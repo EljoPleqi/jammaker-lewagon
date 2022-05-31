@@ -1,0 +1,12 @@
+
+<%= simple_form_for @recipe do |f| %>
+  <%= f.input :url %>
+  <%= f.submit "create a recipe" %>
+<% end %>
+
+<% @recipes.each do |recipe| %>
+  <%= recipe.title %>
+  <%= recipe.preptime %>
+  <%= recipe.ingredients %>
+   <%= recipe.instructions %>
+<%end %>
