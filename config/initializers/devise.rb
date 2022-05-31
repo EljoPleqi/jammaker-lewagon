@@ -275,6 +275,7 @@ Devise.setup do |config|
   %w(
   playlist-modify-public,
   user-modify-playback-state,
+  user-read-email,
   user-read-private,
   playlist-read-collaborative,
   user-read-playback-state,
