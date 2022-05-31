@@ -66,5 +66,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #gem to handle authentication
 
 gem 'omniauth-spotify'
-
-gem "tailwindcss-rails", "~> 2.0"
