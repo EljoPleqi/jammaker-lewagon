@@ -21,10 +21,13 @@ class Recipe < ApplicationRecord
     @ingredients = @elements3.text.strip
     @elements4 = doc.search('.recipe-instructions')
     @steps = @elements4.text.strip
+    @elements5 = doc.search('.lead-media img')
+    @image = @elements5.attribute("src").value
     @recipe.title = @title
     @recipe.preptime = @preptime
     @recipe.ingredients = @ingredients
     @recipe.steps = @steps
+    @recipe.url = @image
     return @recipe
   end
 end
