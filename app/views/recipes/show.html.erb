@@ -1,0 +1,11 @@
+<h1> <%= @recipe.title %> </h1>
+<%
+=begin%>
+  preptime...
+<%
+=end%>
+<ul>
+  <% @instructions.each do |instruction|%>
+    <li><%=  instruction.content %></li>
+  <% end %>
+</ul>
