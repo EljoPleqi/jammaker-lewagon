@@ -28,7 +28,7 @@
    display: flex;
    justify-content: space-evenly;
    text-decoration: none;
-   border-radius: 2px;
+   border-radius: 9px;
    padding: 3px;
    align-items: center;
    padding-bottom: 2px;
@@ -41,4 +41,45 @@
   }
 #text{
   padding-top: 12px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.text{
+  padding-left: 100px;
+  width: 50%;
+}
+.text h1 {
+  font-weight: bolder;
+}
+.img {
+  width: 50%;
+}
+
+.btn {
+  background-color: #0F172A;
+  width: 14rem;
+   height: 3rem;
+   padding: 0.7rem 1.5rem;
+   color: white;
+   //margin-left: 3rem;
+   display: flex;
+   justify-content: space-evenly;
+   text-decoration: none;
+   border-radius: 9px;
+   padding: 3px;
+   align-items: center;
+   padding-bottom: 2px;
+  padding-left: 2px;
+}
+
+.recipe-img{
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  border-radius: 9px;
 }
