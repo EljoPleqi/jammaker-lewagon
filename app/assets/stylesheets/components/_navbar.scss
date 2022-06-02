@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@700&display=swap');
 
 .navbar-lewagon {
+  font-family: 'Lexend Deca', sans-serif;
+}
+.navbar-lewagon {
   justify-content: space-between;
   background: white;
 }
@@ -72,7 +75,32 @@
   #wrapper-nav {
     display: flex;
     gap: 1em;
-      li {
-      text-decoration: none;}
+
 
   }
+.nav {
+    text-decoration: none;
+    align-items: center;
+    padding-top: 9px;
+    color: #0F172A;
+    }
+.icon {
+  width: 35px;
+  height: 35px;
+  align-items: center;
+}
+#btn{
+  background-color: #0F172A;
+  width: 14rem;
+  height: 3rem;
+  padding: 0.7rem 1.5rem;
+  color: white;
+  margin-left: 3rem;
+  display: flex;
+  justify-content: space-evenly;
+  text-decoration: none;
+  border-radius: 9px;
+  padding: 3px;
+  align-items: center;
+  padding-bottom: 2px;
+}

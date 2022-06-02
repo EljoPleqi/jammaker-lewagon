@@ -8,42 +8,29 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipes_params)
-    scraper(@recipe.url)
+    @recipe = Recipe.scraper(@recipe)
     @recipe.user = current_user
     @recipe.save
-    redirect_to recipes_path
+    @instructions = Instruction.parse(@recipe.steps)
+    @instructions.each do |instruction|
+      Instruction.create(content: instruction, recipe: @recipe)
+    end
+    redirect_to recipe_path(@recipe)
   end
 
   def show
+    #find recipes to show
+    #show all of the instructions for that recipes
+    @recipe = Recipe.find(params[:id])
+    @instructions = @recipe.instructions
   end
 
   def destroy
+    @recipes.destroy
+    redirect_to recipes_path
   end
 
   private
-
-  def scraper(url)
-    # 1. We get the HTML page content
-    html_content = URI.open(url).read
-    # 2. We build a Nokogiri document from this file
-    doc = Nokogiri::HTML(html_content)
-    @elements = doc.search('.recipe-meta-item-body')
-    @preptime = @elements[2].text.strip
-    hour = @preptime.match(/(\d+) hr/)[1].to_i * 60
-    min = @preptime.match(/(\d+) min/)[1].to_i
-    @preptime = hour + min
-    @elements2 = doc.search('.headline')
-    @title = @elements2.text.strip
-    @elements3 = doc.search('.ingredients-section')
-    @ingredients = @elements3.text.strip
-    @elements4 = doc.search('.recipe-instructions')
-    @instructions = @elements4.text.strip
-    @recipe.title = @title
-    @recipe.preptime = @preptime
-    @recipe.ingredients = @ingredients
-    @recipe.instructions = @instructions
-  end
-
   def recipes_params
     params.require(:recipe).permit(:url)
   end
