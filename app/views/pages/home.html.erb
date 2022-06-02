@@ -15,7 +15,7 @@
  </div>
  <div class="text">
   <h1>As you cook, the playlist cooks right along with you.</h1>
-  <p>With Jammaker you will never have to think about what music to listen to while cooking An online tool that makes it easy to create playlists that last exactly as long as the cooking time. Forget about your playlist having to stop mid-dinner, or worrying whether they will run out of songs by the time you cut the cheese.</p>
+  <p>With Jammaker you will never have to think about what music to listen to while cooking. <br> An online tool that makes it easy to create playlists that last exactly as long as the cooking time. Forget about your playlist having to stop mid-dinner, or worrying whether they will run out of songs by the time you cut the cheese.</p>
   <a href = "#" class = "btn">
     <img class= "icon"src="/assets/Spotify_Icon_RGB_White.png">
     <p id="text">Login with Spotify</p>
@@ -25,3 +25,28 @@
 </div>
 
     <%= render 'components/review-card' %>
+
+<div class="container2">
+  <div class="content">
+    <h1 class="lemon-txt">Got too many lemon's? <br>
+    Learn how to make lemonade</h1>
+    <form id="form">
+    <input type="subscribe" id="query" name="sub" placeholder="youdefinetlywantournewsletter@gmail.com">
+    <button id="dark-btn">Subscribe</button>
+</form>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="content2">
+  <div>
+    <h1 class="title-footer">JAMMAKER</h1>
+    <h3 class="h3-footer">Your jam. Your playlist</h3>
+  </div>
+
+    <p class="names">Created by Boyan, Eljo, Fabio, Same, Sofiane</p>
+  </div>
+
+</div>
+<%= link_to 'Sign in with Spotify', '/auth/spotify', method: :post %>
