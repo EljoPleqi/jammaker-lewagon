@@ -1,16 +1,11 @@
-
-<div class="card-product">
-  <img src="<%=@recipe.url %>">
-  <div class="card-product-infos">
-    <h2> <%= @recipe.title %> </h2>
-    <p> <%= @recipe.preptime %> </p>
-    <p> <%= @recipe.ingredients %> </p>
-    <ul>
-      <% @instructions.each do |instruction|%>
-    <li><%=  instruction.content %></li>
-    <% end %>
-    </ul>
+<h2> <%= @recipe.title %> </h2>
+<p> <%= @recipe.preptime %> </p>
+<p> <%= @recipe.ingredients %> </p>
+<% @instructions.each do |instruction|%>
+  <div class="card-product">
+    <img src="<%=@recipe.url %>">
+    <div class="card-product-infos">
+      <%=  instruction.content %>
+    </div>
   </div>
-</div>
-
-<%
+<% end %>

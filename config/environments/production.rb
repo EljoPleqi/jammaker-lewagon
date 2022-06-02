@@ -1,7 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -61,7 +60,11 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
+<<<<<<< HEAD
   # config.active_job.queue_name_prefix = "jammaker_production"
+=======
+  # config.active_job.queue_name_prefix = "jamm_no_devise_production"
+>>>>>>> bf6efc2c443ec4377dae9c785538323b50478b31
 
   config.action_mailer.perform_caching = false
 

@@ -1,1 +1,1 @@
-The Jam Maker is a small tool designed to help you create playlists that last as long as the total length of the recipe.
+Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.

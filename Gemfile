@@ -18,7 +18,11 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
+<<<<<<< HEAD
 gem 'redis', '~> 4.0'
+=======
+# gem 'redis', '~> 4.0'
+>>>>>>> bf6efc2c443ec4377dae9c785538323b50478b31
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -28,12 +32,21 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+<<<<<<< HEAD
 gem 'devise'
 
 gem 'autoprefixer-rails', '10.2.5'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form', github: 'heartcombo/simple_form'
 group :development, :test do  gem 'pry-byebug'
+=======
+gem 'autoprefixer-rails', '10.2.5'
+gem 'font-awesome-sass', '~> 5.6.1'
+gem 'simple_form', github: 'heartcombo/simple_form'
+
+group :development, :test do
+  gem 'pry-byebug'
+>>>>>>> bf6efc2c443ec4377dae9c785538323b50478b31
   gem 'pry-rails'
   gem 'dotenv-rails'
 
@@ -62,11 +75,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-#gem to handle authentication
-
-gem 'omniauth-spotify'
-
-gem 'omniauth-rails_csrf_protection'
-
+gem 'devise'
 gem 'rspotify'
+gem "omniauth-rails_csrf_protection"

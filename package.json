@@ -1,5 +1,5 @@
 {
-  "name": "jammaker",
+  "name": "jamm-no-devise",
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.5",

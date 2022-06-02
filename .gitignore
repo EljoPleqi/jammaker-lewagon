@@ -36,9 +36,16 @@ yarn-debug.log*
 .yarn-integrity
 # Ignore .env file containing credentials.
 .env*
+<<<<<<< HEAD
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+=======
+
+# Ignore Mac and Linux file system files
+*.swp
+.DS_Store
+>>>>>>> bf6efc2c443ec4377dae9c785538323b50478b31
