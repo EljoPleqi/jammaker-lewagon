@@ -5,7 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-<<<<<<< HEAD
 require 'nokogiri'
 require 'open-uri'
 
@@ -40,5 +39,3 @@ end
 
 scraper("https://www.allrecipes.com/recipe/267291/chicken-taco-lasagna/")
 puts "Created #{Recipe.last.title}"
-=======
->>>>>>> refs/remotes/origin/main

@@ -1,4 +1,4 @@
-# config/initializers/omniauth.rb
+
 
 require 'rspotify/oauth'
 

@@ -1,4 +1,4 @@
-<div class="hero">
+<%# <div class="hero">
  <h1 class="text-3xl font-bold underline">
      Cook to a playlist, <br>
      Not a timer!
@@ -6,9 +6,8 @@
 
   <a href = "#" class = "button">
     <img class= "icon"src="/assets/Spotify_Icon_RGB_White.png">
-    <p id="text">Login with Spotify</p>
-  </a>
-</div>
+<%= link_to 'Sign in with Spotify', '/auth/spotify', method: :post %>  </a>
+<%# </div>
 <div class="container">
  <div class="img">
   <img class="recipe-img" src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=426&q=80" alt="Recipe Image">
@@ -24,4 +23,7 @@
 
 </div>
 
-    <%= render 'components/review-card' %>
+    <%= render 'components/review-card' %> %> %>
+<h1>Pages#home</h1>
+<p>Find me in app/views/pages/home.html.erb</p>
+<%= link_to 'Sign in with Spotify', '/auth/spotify', method: :post %>
