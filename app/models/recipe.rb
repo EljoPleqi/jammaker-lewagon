@@ -14,7 +14,7 @@ class Recipe < ApplicationRecord
     # hour = @preptime.match(/(\d+) hr/)[1].to_i * 60
     # min = @preptime.match(/(\d+) min/)[1].to_si
     @url = @recipe.url
-    @preptime = 60 + 30
+    # @preptime = 60 + 30
     @elements2 = doc.search('.headline')
     @title = @elements2.text.strip
     @elements3 = doc.search('.ingredients-section')
