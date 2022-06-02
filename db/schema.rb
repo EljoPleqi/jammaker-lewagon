@@ -16,16 +16,19 @@ ActiveRecord::Schema.define(version: 2022_06_02_115725) do
   enable_extension "plpgsql"
 
   create_table "instructions", force: :cascade do |t|
+    t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "content"
     t.bigint "recipe_id", null: false
     t.index ["recipe_id"], name: "index_instructions_on_recipe_id"
   end
 
-  create_table "recipe_instructions", force: :cascade do |t|
+  create_table "playlists", force: :cascade do |t|
+    t.string "spotify_playlist_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "recipes_id"
+    t.index ["recipes_id"], name: "index_playlists_on_recipes_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -50,6 +53,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_115725) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
     t.string "username"
     t.json "spotify_hash"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -57,5 +61,6 @@ ActiveRecord::Schema.define(version: 2022_06_02_115725) do
   end
 
   add_foreign_key "instructions", "recipes"
+  add_foreign_key "playlists", "recipes", column: "recipes_id"
   add_foreign_key "recipes", "users"
 end
