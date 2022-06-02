@@ -15,6 +15,8 @@ module JammNoDevise
     end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    RSpotify::authenticate(ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'])
+
 
     # Configuration for the application, engines, and railties goes here.
     #
