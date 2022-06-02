@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@700&display=swap');
+
+.navbar-lewagon {
+  font-family: 'Lexend Deca', sans-serif;
+}
 .navbar-lewagon {
   justify-content: space-between;
   background: white;
@@ -9,4 +14,93 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+
+#navbar_overwritten{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #EFECE6;;
+
+  }
+
+  #logo {
+  font-family: arial;
+  color: #222;
+  font-size: 22px;
+  line-height: 55px;
+  float: left;
+  padding: 0;
+  width: 138px;
+  height: 34px;
+  }
+
+
+  nav ul {
+  float: left;
+  }
+
+  nav ul li {
+  float: left;
+  list-style: none;
+  position: relative;
+  }
+
+  nav ul li a {
+  display: block;
+  font-family: inter;
+  font-weight: bold;
+  color: #222;
+  font-size: 16px;
+  padding: 4px 16px;
+  text-decoration: none;
+  }
+
+  nav ul li ul {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border-radius: 0px 0px 4px 4px;
+  }
+
+  nav ul li ul li a  {
+  padding: 8px 14px;
+  width: 180px;
+  border-radius: 4px;
+  }
+
+  #wrapper-nav {
+    display: flex;
+    gap: 1em;
+
+
+  }
+.nav {
+    text-decoration: none;
+    align-items: center;
+    padding-top: 9px;
+    color: #0F172A;
+    }
+.icon {
+  width: 35px;
+  height: 35px;
+  align-items: center;
+}
+#btn{
+  background-color: #0F172A;
+  width: 14rem;
+  height: 3rem;
+  padding: 0.7rem 1.5rem;
+  color: white;
+  margin-left: 3rem;
+  display: flex;
+  justify-content: space-evenly;
+  text-decoration: none;
+  border-radius: 9px;
+  padding: 3px;
+  align-items: center;
+  padding-bottom: 2px;
 }
