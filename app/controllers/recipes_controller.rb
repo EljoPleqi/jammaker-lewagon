@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  #remove skip
+  skip_before_action :authenticate_user!
   require "open-uri"
 
   def index
@@ -9,7 +11,8 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipes_params)
     @recipe = Recipe.scraper(@recipe)
-    @recipe.user = current_user
+    #change Usser.last to current_user
+    @recipe.user = User.last
     @recipe.save
     @instructions = Instruction.parse(@recipe.steps)
     @instructions.each do |instruction|

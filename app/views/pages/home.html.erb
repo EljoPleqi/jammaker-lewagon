@@ -15,8 +15,15 @@
  </div>
  <div class="text">
   <h1>As you cook, the playlist cooks right along with you.</h1>
+
   <p>With Jammaker you will never have to think about what music to listen to while cooking An online tool that makes it easy to create playlists that last exactly as long as the cooking time. Forget about your playlist having to stop mid-dinner, or worrying whether they will run out of songs by the time you cut the cheese.</p>
-  <a href = "#" class = "btn">
+  <%=link_to 'Sign in with Spotify', '/auth/spotify', method: :post %>
+
+  <%
+=begin%>
+ <a href = '<%=  auth_spotify_callback_path %>' class = "btn">
+<%
+=end%>
     <img class= "icon"src="/assets/Spotify_Icon_RGB_White.png">
     <p id="text">Login with Spotify</p>
   </a>
