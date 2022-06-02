@@ -2,7 +2,7 @@
   overflow: hidden;
   height: 120px;
   background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
 }
@@ -24,9 +24,15 @@
   line-height: 1.4;
   opacity: .7;
   margin-bottom: 0;
-  margin-top: 8px;
+  margin-top: 12px;
+  font-weight: bold;
+  color: black;
 }
 
 .card-product .card-product-infos {
   padding: 16px;
+}
+
+.all-card-container{
+  margin-top: 60px;
 }
