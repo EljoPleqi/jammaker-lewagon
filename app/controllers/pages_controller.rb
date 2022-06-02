@@ -1,7 +1,7 @@
-require 'rspotify'
+
 
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home ]
+  # @user = RSpotify::User.new(request.env['omniauth.auth'])
 
   def home
   end
@@ -28,17 +28,4 @@ class PagesController < ApplicationController
     }
     #@preptime
   end
-
-  def fetch
-
-    RSpotify.raw_response = true
-    @result = RSpotify::Artist.search(query)
-    # @result = query[:query]
-  end
-
-  def query
-    @query = params[:query][:query]
-
-  end
-
 end
