@@ -50,8 +50,8 @@ class RecipesController < ApplicationController
     until playlist_time == prep_time
       # TODO: loop logic
       song = fetch("pop")
-      playlist_time += song.duration_ms / 60_000 unless song.nil?
-      songs.push(song)
+      playlist_time += song[0][1] / 60_000 unless song.nil?
+      songs.push(song[0][0])
     end
 
     playlist.add_tracks!(songs)
@@ -62,9 +62,12 @@ class RecipesController < ApplicationController
   def fetch(cat)
     # * Pull 20 playlists of a certain category in spotify
     category = RSpotify::Category.find(cat)
+    playlists = category.playlists
     # * pull 1 random playlist out of the collection of 20
-    playlist_response = category.playlists[rand(category.playlists.size) - 1]
-    playlist_response.tracks[rand(20)] unless playlist_response.nil? # * <--- RETURN SINGLE TRACK IN RANDOM POSITION
+    playlist_response = playlists[rand(playlists.size) - 1]
+    tracks = playlist_response.tracks.sample(1) unless playlist_response.nil? # * <--- RETURN SINGLE TRACK IN RANDOM POSITION
+    tracks.map! { |track| [track.uri, track.duration_ms] }
+
   end
 
   def recipes_params
