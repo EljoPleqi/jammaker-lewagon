@@ -1,0 +1,71 @@
+.screen {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 0.4fr repeat(3, 1fr);
+}
+.sidenav {
+  background-color: #f7f6f3;
+  grid-area: 1 / 1 / 5 / 2;
+}
+.user-info {
+  grid-area: 1 / 2 / 2 / 3;
+  text-align: center;
+  justify-content: center;
+}
+.recipe-grid {
+  display: grid;
+  overflow: scroll;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 0.8rem;
+  grid-area: 2 / 2 / 4 / 3;
+  align-items: center;
+  justify-items: center;
+}
+
+.recipe-card {
+  width: 24rem;
+  height: 8rem;
+  background-color: #fff;
+  display: flex;
+  gap: 2rem;
+}
+
+.img-container {
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+  height: 100%;
+  width: 8rem;
+  max-width: 8rem;
+  background-color: #6e6549;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  img {
+    height: 8rem;
+    max-width: 8rem;
+  }
+}
+.recipe-content {
+  max-width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.url-input-header {
+  padding-top: 2rem;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #f7f6f3;
+  text-align: center;
+}
+.url-input {
+  background-color: #252118;
+  grid-area: 4 / 2 / 5 / 3;
+}

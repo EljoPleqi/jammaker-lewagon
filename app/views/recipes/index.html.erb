@@ -1,12 +1,28 @@
+<div class="screen">
+  <div class="sidenav">
+  sidenav</div>
 
-<%= simple_form_for @recipe do |f| %>
-  <%= f.input :url %>
-  <%= f.submit "create a recipe" %>
-<% end %>
+  <div class="user-info">
+    <h2><%= current_user.username%> Cookbook</h2>
+  </div>
+  <div class="recipe-grid">
+    <% @recipes.each do |recipe| %>
+    <div class="recipe-card">
+              <div class="img-container">
+                <img src="<%= recipe.url %>" alt="">
+              </div>
+              <div class="recipe-content">
+                <%= recipe.title %>
+              </div>
+            </div>
+    <%end %>
+  </div>
 
-<% @recipes.each do |recipe| %>
-  <%= recipe.title %>
-  <%= recipe.preptime %>
-  <%= recipe.ingredients %>
-   <%= recipe.instructions %>
-<%end %>
+    <div class="url-input">
+    <h2 class="url-input-header">Turn the heat up chef</h2>
+      <%= simple_form_for @recipe do |f| %>
+      <%= f.input :url %>
+      <%= f.submit "create a recipe" %>
+      <% end %>
+    </div>
+</div>
