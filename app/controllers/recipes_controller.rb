@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   require "open-uri"
+  before_action :find_user, only: %i[create_playlist fetch]
 
   def index
     @recipes = Recipe.all
@@ -15,6 +16,7 @@ class RecipesController < ApplicationController
     @instructions.each do |instruction|
       Instruction.create(content: instruction, recipe: @recipe)
     end
+    create_playlist(@recipe.preptime.to_i, @recipe.title)
     redirect_to recipe_path(@recipe)
   end
 
@@ -31,7 +33,50 @@ class RecipesController < ApplicationController
   end
 
   private
+
+  # * the #create_playlist takes two paraments the spotify user and the prep_time from the scrapper
+  # * the #create_playlist generates and populates the user recipe
+  def create_playlist(prep_time, playlist_name)
+    user_hash = JSON.parse(current_user.spotify_hash)
+    spotify_user = RSpotify::User.new(user_hash)
+
+    # * CREATE THE PLAYLIST
+    playlist = spotify_user.create_playlist!("Jammaker-#{playlist_name}")
+    # * currate the songs array, it must hold either tracks or a collection of strings that is a valid spotify track uri
+    songs = []
+    # TODO: calculate the total duration of all the songs inside the songs array
+    playlist_time = 0
+    # * looping until the total playlist time reaches the total preptime
+    until playlist_time == prep_time
+      # TODO: loop logic
+      song = fetch("pop")
+      playlist_time += song.duration_ms / 60_000 unless song.nil?
+      songs.push(song)
+    end
+
+    playlist.add_tracks!(songs)
+
+    @message = ["Playlist all done 🎉 total playlist time => #{playlist_time}"] # * <--- RETURN
+  end
+
+  def fetch(cat)
+    # * Pull 20 playlists of a certain category in spotify
+    category = RSpotify::Category.find(cat)
+    # * pull 1 random playlist out of the collection of 20
+    playlist_response = category.playlists[rand(category.playlists.size) - 1]
+    playlist_response.tracks[rand(20)] unless playlist_response.nil? # * <--- RETURN SINGLE TRACK IN RANDOM POSITION
+  end
+
   def recipes_params
     params.require(:recipe).permit(:url)
+  end
+
+  def find_user
+   spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
+
+    user = User.find_by(email: spotify_user.email)
+    user_hash = JSON.parse(user.spotify_hash)
+    spotify_user = RSpotify::User.new(user_hash)
+
   end
 end
