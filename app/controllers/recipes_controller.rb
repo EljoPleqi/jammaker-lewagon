@@ -72,11 +72,9 @@ class RecipesController < ApplicationController
   end
 
   def find_user
-   spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-
+    spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
     user = User.find_by(email: spotify_user.email)
     user_hash = JSON.parse(user.spotify_hash)
     spotify_user = RSpotify::User.new(user_hash)
-
   end
 end
