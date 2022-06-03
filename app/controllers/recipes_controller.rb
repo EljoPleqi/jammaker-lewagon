@@ -39,7 +39,6 @@ class RecipesController < ApplicationController
   def create_playlist(prep_time, playlist_name)
     user_hash = JSON.parse(current_user.spotify_hash)
     spotify_user = RSpotify::User.new(user_hash)
-
     # * CREATE THE PLAYLIST
     playlist = spotify_user.create_playlist!("Jammaker-#{playlist_name}")
     # * currate the songs array, it must hold either tracks or a collection of strings that is a valid spotify track uri
@@ -49,7 +48,7 @@ class RecipesController < ApplicationController
     # * looping until the total playlist time reaches the total preptime
     until playlist_time == prep_time
       # TODO: loop logic
-      song = fetch("pop")
+      song = fetch("punk")
       playlist_time += song[0][1] / 60_000 unless song.nil?
       songs.push(song[0][0])
     end
@@ -60,14 +59,20 @@ class RecipesController < ApplicationController
   end
 
   def fetch(cat)
+    user_hash = JSON.parse(current_user.spotify_hash)
+    spotify_user = RSpotify::User.new(user_hash)
+
+
     # * Pull 20 playlists of a certain category in spotify
     category = RSpotify::Category.find(cat)
+    # tracks = uri.open()
     playlists = category.playlists
     # * pull 1 random playlist out of the collection of 20
-    playlist_response = playlists[rand(playlists.size) - 1]
-    tracks = playlist_response.tracks.sample(1) unless playlist_response.nil? # * <--- RETURN SINGLE TRACK IN RANDOM POSITION
-    tracks.map! { |track| [track.uri, track.duration_ms] }
-
+    playlist_response = playlists[rand(playlists.size) - 1].href
+    x = JSON.parse( URI.open(playlist_response, {'Authorization'=>"Bearer #{spotify_user.credentials['token']}", "Content-Type"=>"application/json"}).read)
+    y = x['tracks']['items'].map { |item| [item['track']['uri'], item['track']['duration_ms']] unless item.nil? }
+    # tracks = playlist_response.tracks.sample(1) unless playlist_response.nil? # * <--- RETURN SINGLE TRACK IN RANDOM POSITION
+    y.sample(1)
   end
 
   def recipes_params
