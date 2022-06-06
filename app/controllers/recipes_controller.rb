@@ -13,16 +13,15 @@ class RecipesController < ApplicationController
     @recipe.user = current_user
     @recipe.save
     @instructions = Instruction.parse(@recipe.steps)
+    @instructions.shift
     @instructions.each do |instruction|
       Instruction.create(content: instruction, recipe: @recipe)
     end
-    create_playlist(@recipe.preptime.to_i, @recipe.title)
+    # create_playlist(@recipe.preptime.to_i, @recipe.title)
     redirect_to recipe_path(@recipe)
   end
 
   def show
-    #find recipes to show
-    #show all of the instructions for that recipes
     @recipe = Recipe.find(params[:id])
     @instructions = @recipe.instructions
   end

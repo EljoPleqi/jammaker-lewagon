@@ -9,20 +9,21 @@ class Recipe < ApplicationRecord
     html_content = URI.open(@recipe.url).read
     # 2. We build a Nokogiri document from this file
     doc = Nokogiri::HTML(html_content)
-    @elements = doc.search('.recipe-meta-item-body')
-    @preptime = @elements[2].text.strip
-    # hour = @preptime.match(/(\d+) hr/)[1].to_i * 60
-    # min = @preptime.match(/(\d+) min/)[1].to_si
+    @preptime = doc.search('.recipe-meta-item')[2].text.strip
+    hour = @preptime.match(/(\d+) hr/)
+    hour = hour[1].to_i * 60 if hour.present?
+    min = @preptime.match(/(\d+) mins/)[1].to_i
     @url = @recipe.url
-    # @preptime = 60 + 30
-    @elements2 = doc.search('.headline')
-    @title = @elements2.text.strip
-    @elements3 = doc.search('.ingredients-section')
-    @ingredients = @elements3.text.strip
-    @elements4 = doc.search('.recipe-instructions')
-    @steps = @elements4.text.strip
-    @elements5 = doc.search('.lead-media img')
-    @image = @elements5.attribute("src").value
+    @preptime = hour.present? ? hour + min : min
+    @title = doc.search('.headline').text.strip
+    @ingredients = doc.search('.ingredients-section').text.strip
+    @steps = doc.search('.instructions-section').text.strip
+    if doc.search('.lead-media img').present?
+      @image = doc.search('.lead-media img').attribute("src").value
+    else
+      @image = doc.search('video').attribute('poster').value
+    end
+    # @image = if @image.present? ? @image : @image2
     @recipe.title = @title
     @recipe.preptime = @preptime
     @recipe.ingredients = @ingredients

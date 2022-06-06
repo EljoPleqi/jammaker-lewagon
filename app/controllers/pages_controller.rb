@@ -12,7 +12,7 @@ class PagesController < ApplicationController
     html_content = File.open(filepath)
     # 2. We build a Nokogiri document from this file
     doc = Nokogiri::HTML(html_content)
-    @elements = doc.search('.recipe-meta-item-body')
+    @elements = doc.search('.recipe-meta-item-body .recipe-meta-item-header')
     @preptime = @elements[2].text.strip
     @elements2 = doc.search('.headline')
     @title = @elements2.text.strip
