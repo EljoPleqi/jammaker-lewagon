@@ -49,9 +49,9 @@ class UsersController < ApplicationController
     ).execute do |response, _request, _result|
       case response.code
       when 400
-        [:error, as_json(response)]
+        JSON.parse(response.body)
       when 200
-        new_cred = JSON.parse(response.body.as_json)
+        new_cred = JSON.parse(response.body)
         user_hash["credentials"]['token'] = new_cred[:access_token]
       else
         fail "Invalid response #{response.as_json} received."
