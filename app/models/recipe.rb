@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
   require "open-uri"
   belongs_to :user
   has_many :instructions
+  has_many :playlist
 
   def self.scraper(recipe)
     # 1. We get the HTML page content

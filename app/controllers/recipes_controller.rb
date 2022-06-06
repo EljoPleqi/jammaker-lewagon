@@ -52,7 +52,9 @@ class RecipesController < ApplicationController
 
     spotify_user = RSpotify::User.new(JSON.parse(current_user.spotify_hash))
     playlist = spotify_user.create_playlist!("Jammaker-#{playlist_name}")
-    Playlist.create(spotify_playlist_id: playlist.id, recipe_id: @recipe.id)
+    raise
+    recipe_playlist = Playlist.create(spotify_playlist_id: playlist.id, recipe_id: @recipe.id, recipes_id: @recipe.id)
+    raise
     playlist.add_tracks!(songs)
   end
 
