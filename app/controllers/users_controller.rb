@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def fetch_access(user)
     # * encoding app credentials
     enc_credentials = "Basic  #{Base64.strict_encode64("#{ENV['SPOTIFY_CLIENT_ID']}:#{ENV['SPOTIFY_CLIENT_SECRET']}")}"
+    puts enc_credentials
     # * retrieve user from the database
     user_hash = JSON.parse(user.spotify_hash)
     # * get spotify urls
