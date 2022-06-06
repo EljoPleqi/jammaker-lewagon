@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&family=Space+Mono&display=swap');
+
+h1, h2, h3, h4, p {
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+.Modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+
+.Modal:before {
+  content: '' !important;
+  display: inline-block !important;
+  height: 100% !important;
+  vertical-align: middle !important;
+}
+
+.Modal-inner {
+  position: relative;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  min-width: 350px;
+  max-width: 95%;
+  max-height: 95%;
+  margin: 0 auto;
+  padding: 36px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0.3125rem 0.3125rem 0 rgba(57, 72, 86, 0.5);
+  text-align: left;
+  overflow: auto;
+}
+
+.Modal-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-size: 24px;
+  line-height: 1;
+  color: #d7dadd;
+  cursor: pointer;
+}
+
+.Modal-close:hover {
+  color: #bbc1c6;
+}
+
+.Modal-heading {
+  margin-bottom: 12px;
+  font-size: 21px;
+  line-height: 1.69014;
+}
+
+[class^="Icon--"],
+[class*=" Icon--"] {
+  font-family: 'fed_icon_font';
+}
+
+.Icon--close:before {
+  content: "\e009";
+}
+
+#button{
+  display: flex;
+ justify-content: flex-end;
+ gap: 0.5em;
+}
