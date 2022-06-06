@@ -36,8 +36,7 @@ class UsersController < ApplicationController
     # * retrieve user from the database
     user_hash = JSON.parse(user.spotify_hash)
     # * get spotify urls
-    access_token = user_hash['credentials']['refresh_token']
-
+    refresh_token = user_hash['credentials']['refresh_token']
     spotify_urls = spotify_urls()
     # * the new access token
     RestClient::Request.new(
@@ -45,7 +44,7 @@ class UsersController < ApplicationController
         url: spotify_urls[:token],
         method: "POST",
         headers: {  "Content-Type" => "application/x-www-form-urlencoded", "Authorization" => enc_credentials },
-        payload: { "grant_type" => 'refresh_token', "refresh_token" =>  access_token }
+        payload: { "grant_type" => 'refresh_token', "refresh_token" => refresh_token }
       }
     ).execute do |response, _request, _result|
       case response.code
@@ -53,7 +52,7 @@ class UsersController < ApplicationController
         [:error, as_json(response)]
       when 200
         new_cred = JSON.parse(response.body.as_json)
-        user_hash["credentials"]['token'] = new_cred["access_token"]
+        user_hash["credentials"]['token'] = new_cred[:access_token]
       else
         fail "Invalid response #{response.as_json} received."
       end
