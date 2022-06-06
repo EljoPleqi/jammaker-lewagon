@@ -42,10 +42,11 @@ class RecipesController < ApplicationController
     # TODO: calculate the total duration of all the songs inside the songs array
     playlist_time = 0
     # * looping until the total playlist time reaches the total preptime
-    until playlist_time == prep_time + 2 || playlist_time == prep_time - 2
+    until playlist_time.to_f >= prep_time.to_f
       # TODO: loop logic
       song = fetch_songs
       playlist_time += song[1] / 60_000 unless song.nil?
+      puts "playlist time#{playlist_time} prep time #{prep_time}"
       songs.push(song[0]) unless songs.include?(song[0])
     end
     # * CREATE THE PLAYLIST
@@ -85,20 +86,58 @@ class RecipesController < ApplicationController
     category_url =  "https://api.spotify.com/v1/browse/categories/pop"
 
     # * get the playlist url from the category
-    playlist_response = RestClient.get("#{category_url}/playlists",
-                                      { "Accept" => "application/json",
-                                        "Content-Type" => "application/json",
-                                        "Authorization" => enc_credentials })
-                                        puts playlist_response
-    playlist_data = JSON.parse(playlist_response)
+    # playlist_response = RestClient.get("#{category_url}/playlists",
+    #                                   { "Accept" => "application/json",
+    #                                     "Content-Type" => "application/json",
+    #                                     "Authorization" => enc_credentials })
+    #                                     puts playlist_response
 
-    playlist_url =  playlist_data['playlists']['items'][rand(playlist_data.length) - 1]['href']
-    song_response = RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
-                                    { "Accept" => "application/json",
-                                      "Content-Type" => "application/json",
-                                      "Authorization" => enc_credentials })
-    song_data = JSON.parse(song_response)
-    [song_data['items'].first['track']['uri'], song_data['items'].first['track']['duration_ms']]
+ playlist_response = RestClient::Request.new(
+      {
+        url: "#{category_url}/playlists",
+        method: "GET",
+        headers: { "Accept" => "application/json",
+                                        "Content-Type" => "application/json",
+                                        "Authorization" => enc_credentials }      }
+    ).execute do |response, _request, _result|
+      case response.code
+      when 400
+        puts JSON.parse(response.body)
+      when 200
+        puts "line 106"
+        playlist_response = JSON.parse(response.body.as_json)
+      else
+        fail "Invalid response #{response.as_json} received."
+      end
+    end
+
+
+    playlist_url =  playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
+    song_response = RestClient::Request.new(
+      {
+        url: playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
+        method: "GET",
+        headers: { "Accept" => "application/json",
+                                        "Content-Type" => "application/json",
+                                        "Authorization" => enc_credentials }      }
+    ).execute do |response, _request, _result|
+      case response.code
+      when 400
+        puts JSON.parse(response.body)
+      when 200
+        puts "line 127"
+        playlist_response = JSON.parse(response.body.as_json)
+      else
+        fail "Invalid response #{response.as_json} received."
+      end
+    end
+
+    # RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
+    #                                 { "Accept" => "application/json",
+    #                                   "Content-Type" => "application/json",
+    #                                   "Authorization" => enc_credentials })
+    # song_data = JSON.parse(song_response)
+    [song_response['items'].first['track']['uri'], song_response['items'].first['track']['duration_ms']]
   end
 
   def recipes_params
