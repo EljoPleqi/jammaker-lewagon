@@ -15,7 +15,7 @@ class RecipesController < ApplicationController
     @instructions = Instruction.parse(@recipe.steps)
     @instructions.shift
     @instructions.each do |instruction|
-      Instruction.create(content: instruction, recipe: @recipe)
+    Instruction.create(content: instruction, recipe: @recipe)
     end
     # create_playlist(@recipe.preptime.to_i, @recipe.title)
     redirect_to recipe_path(@recipe)
