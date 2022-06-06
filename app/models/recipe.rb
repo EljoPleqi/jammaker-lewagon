@@ -12,7 +12,8 @@ class Recipe < ApplicationRecord
     @preptime = doc.search('.recipe-meta-item')[2].text.strip
     hour = @preptime.match(/(\d+) hr/)
     hour = hour[1].to_i * 60 if hour.present?
-    min = @preptime.match(/(\d+) mins/)[1].to_i
+    min = @preptime.match(/(\d+) mins/)
+    min = min.present? ? min[1].to_i : 0
     @url = @recipe.url
     @preptime = hour.present? ? hour + min : min
     @title = doc.search('.headline').text.strip
