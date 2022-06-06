@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
-  require 'rest-client'
-  before_action :spotify_urls, only: [:fetch_songs]
+  # require 'rest-client'
+  # before_action :spotify_urls, only: [:fetch_songs]
 
   def index
     @recipes = Recipe.all
@@ -52,7 +52,9 @@ class RecipesController < ApplicationController
 
     spotify_user = RSpotify::User.new(JSON.parse(current_user.spotify_hash))
     playlist = spotify_user.create_playlist!("Jammaker-#{playlist_name}")
-    Playlist.create(spotify_playlist_id: playlist.id, recipe_id: @recipe.id)
+    recipe_playlist = Playlist.new(spotify_playlist_id: playlist.id)
+    recipe_playlist['recipe_id'] = @recipe.id
+    recipe_playlist.save
     playlist.add_tracks!(songs)
   end
 
@@ -82,16 +84,18 @@ class RecipesController < ApplicationController
     category_url =  "https://api.spotify.com/v1/browse/categories/pop"
 
     # * get the playlist url from the category
-    playlist_data = JSON.parse(RestClient.get("#{category_url}/playlists",
-                                              { "Accept" => "application/json",
-                                                "Content-Type" => "application/json",
-                                                "Authorization" => enc_credentials }))
+    playlist_response = RestClient.get("#{category_url}/playlists",
+                                      { "Accept" => "application/json",
+                                        "Content-Type" => "application/json",
+                                        "Authorization" => enc_credentials })
+    playlist_data = JSON.parse(playlist_response)
 
     playlist_url =  playlist_data['playlists']['items'][rand(playlist_data.length) - 1]['href']
-
-    song_data = JSON.parse(RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
-                                          { "Accept" => "application/json", "Content-Type" => "application/json",
-                                            "Authorization" => enc_credentials }))
+    song_response = RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
+                                    { "Accept" => "application/json",
+                                      "Content-Type" => "application/json",
+                                      "Authorization" => enc_credentials })
+    song_data = JSON.parse(song_response)
     [song_data['items'].first['track']['uri'], song_data['items'].first['track']['duration_ms']]
   end
 
@@ -105,11 +109,11 @@ class RecipesController < ApplicationController
       time_of_creation: Time.now }
   end
 
-  def spotify_urls
-    spotify_urls =  {
-      categories: "https://api.spotify.com/v1/browse/categories/",
-      token: "https://accounts.spotify.com/api/token",
-      refresh: 'https://api.spotify.com/v1/refresh'
-    }
-  end
+  # def spotify_urls
+  #   spotify_urls =  {
+  #     categories: "https://api.spotify.com/v1/browse/categories/",
+  #     token: "https://accounts.spotify.com/api/token",
+  #     refresh: 'https://api.spotify.com/v1/refresh'
+  #   }
+  # end
 end

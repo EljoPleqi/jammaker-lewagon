@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_142024) do
+ActiveRecord::Schema.define(version: 2022_06_06_200437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,10 @@ ActiveRecord::Schema.define(version: 2022_06_06_142024) do
 
   create_table "playlists", force: :cascade do |t|
     t.string "spotify_playlist_id"
+    t.bigint "recipe_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "recipes_id"
-    t.bigint "recipe_id", null: false
     t.index ["recipe_id"], name: "index_playlists_on_recipe_id"
-    t.index ["recipes_id"], name: "index_playlists_on_recipes_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -64,6 +62,5 @@ ActiveRecord::Schema.define(version: 2022_06_06_142024) do
 
   add_foreign_key "instructions", "recipes"
   add_foreign_key "playlists", "recipes"
-  add_foreign_key "playlists", "recipes", column: "recipes_id"
   add_foreign_key "recipes", "users"
 end
