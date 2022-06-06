@@ -1,14 +1,14 @@
-<div class="recipe-details">
-  <img src="<%= @recipe.url %>" width="200">
-  <h2> <%= @recipe.title %> </h2>
-  <p> <%= @recipe.preptime %> min</p>
-</div>
-<div class="screen">
+<div class="screen_show">
   <div class="left">
+    <div class="recipe-details">
+      <h2> <%= @recipe.title %> </h2>
+      <div class="details-subdiv"><p> <%= @recipe.preptime %></p>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Save recipe</button></div>
+    </div>
     <div class="instrunctions-container">
       <% @instructions.each do |instruction|%>
         <div class="recipe-instruction-card">
-          <span class="badge font-48 bg-success"> <%= @instructions.index(instruction) + 1%></span>
+          <span class="badge font-48"> <%= @instructions.index(instruction) + 1%></span>
           <div class="instruction-content">
             <%= instruction.content %>
           </div>
@@ -16,12 +16,21 @@
       <% end %>
     </div>
   </div>
+
+  <div class="center">center</div>
+  <div class="right">
+    <div class="user-details">
+      <img src="" class='user-avatar'>
+      <h4> <%= current_user.username%> </h4>
+      <a href="<%=recipes_url %>">Return To The Dashboard</a>
+    </div>
+   <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3lOyjn4iU1xpm7TuRbliYH?utm_source=generator&theme=0" width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  </div>
 </div>
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-Save recipe</button>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
