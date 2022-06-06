@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     refresh_token = user_hash['credentials']['refresh_token']
     spotify_urls = spotify_urls()
     # * the new access token
-    RestClient::Request.new(
+    x = RestClient::Request.new(
       {
         url: spotify_urls[:token],
         method: "POST",
@@ -54,11 +54,13 @@ class UsersController < ApplicationController
         JSON.parse(response.body)
       when 200
         new_cred = JSON.parse(response.body.as_json)
+        puts "#{new_cred} line 57"
         user_hash["credentials"]['token'] = new_cred[:access_token]
       else
         fail "Invalid response #{response.as_json} received."
       end
     end
+    puts x
     user["spotify_hash"] = user_hash # * <-- RETURN THE NEW USER HASH
   end
 end
