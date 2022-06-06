@@ -62,6 +62,7 @@ class RecipesController < ApplicationController
     user_hash = JSON.parse(current_user.spotify_hash)
     enc_credentials = "Bearer #{user_hash['credentials']['token']}"
     puts enc_credentials
+    raise
   #   # * get the categories
   #   categories = RestClient::Request.new(
   #   {
@@ -89,6 +90,7 @@ class RecipesController < ApplicationController
                                       { "Accept" => "application/json",
                                         "Content-Type" => "application/json",
                                         "Authorization" => enc_credentials })
+                                        puts playlist_response
     playlist_data = JSON.parse(playlist_response)
 
     playlist_url =  playlist_data['playlists']['items'][rand(playlist_data.length) - 1]['href']
