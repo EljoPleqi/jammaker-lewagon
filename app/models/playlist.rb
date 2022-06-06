@@ -1,3 +1,3 @@
 class Playlist < ApplicationRecord
-  belongs_to :recipes
+  belongs_to :recipe
 end
