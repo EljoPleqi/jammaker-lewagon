@@ -60,7 +60,8 @@ class RecipesController < ApplicationController
 
   def fetch_songs
     user_hash = JSON.parse(current_user.spotify_hash)
-    enc_credentials = "Bearer #{user_hash[:credentials][:token]}"
+    enc_credentials = "Bearer #{user_hash['credentials']['token']}"
+    puts enc_credentials
   #   # * get the categories
   #   categories = RestClient::Request.new(
   #   {
@@ -89,7 +90,6 @@ class RecipesController < ApplicationController
                                         "Content-Type" => "application/json",
                                         "Authorization" => enc_credentials })
     playlist_data = JSON.parse(playlist_response)
-    raise
 
     playlist_url =  playlist_data['playlists']['items'][rand(playlist_data.length) - 1]['href']
     song_response = RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
