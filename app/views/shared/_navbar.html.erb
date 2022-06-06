@@ -30,8 +30,10 @@
             <li ><a class="nav" href="#">ABOUT US</a></li>
             <li ><a class="nav" href="#">PRICING</a>
             <li ><a class="nav" href="">WHY JAM MAKER?</a></li>
-            <a id="btn"href="#">  <p id="text">Login with Spotify</p><img class= "icon"src="/assets/Spotify_Icon_RGB_White.png"></a>
-
+            <div class = "dark-btn">
+              <%= image_tag('/assets/Spotify_Icon_RGB_White.png', class: 'icon') %>
+              <%= link_to 'Sign in with Spotify', '/auth/spotify', method: :post, class: "link-text" %>
+            </div>
             <li class="nav-item">
               <%= link_to "Login", new_user_session_path, class: "nav-link" %>
             </li>

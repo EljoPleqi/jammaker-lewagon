@@ -37,13 +37,12 @@ class RecipesController < ApplicationController
   # * the #create_playlist takes two paraments the spotify user and the prep_time from the scrapper
   # * the #create_playlist generates and populates the user recipe
   def create_playlist(prep_time, playlist_name)
-
     # * currate the songs array, it must hold either tracks or a collection of strings that is a valid spotify track uri
     songs = []
     # TODO: calculate the total duration of all the songs inside the songs array
     playlist_time = 0
     # * looping until the total playlist time reaches the total preptime
-    until playlist_time == prep_time + 2 ||  playlist_time == prep_time - 2
+    until playlist_time == prep_time + 2 || playlist_time == prep_time - 2
       # TODO: loop logic
       song = fetch_songs
       playlist_time += song[1] / 60_000 unless song.nil?
@@ -60,7 +59,7 @@ class RecipesController < ApplicationController
   def fetch_songs
     user_hash = JSON.parse(current_user.spotify_hash)
     enc_credentials = "Bearer #{user_hash['credentials']['token']}"
-    # * get the categories
+  #   # * get the categories
   #   categories = RestClient::Request.new(
   #   {
   #     url: spotify_urls[:categories],
@@ -76,21 +75,24 @@ class RecipesController < ApplicationController
   #     else
   #       fail "Invalid response #{response.as_json} received."
   #     end
-  #   end
-
+  # end
 
     # TODO: retrieve the playlists from the category repsonse
     # * get the category url
     category_url =  "https://api.spotify.com/v1/browse/categories/pop"
 
     # * get the playlist url from the category
-    playlist_data = JSON.parse(RestClient.get(category_url + "/playlists", { "Accept" => "application/json", "Content-Type" => "application/json", "Authorization" => enc_credentials }))
+    playlist_data = JSON.parse(RestClient.get("#{category_url}/playlists",
+                                              { "Accept" => "application/json",
+                                                "Content-Type" => "application/json",
+                                                "Authorization" => enc_credentials }))
 
-    playlist_url =  playlist_data['playlists']['items'][rand(playlist_data.length)-1]['href']
+    playlist_url =  playlist_data['playlists']['items'][rand(playlist_data.length) - 1]['href']
 
-
-    song_data = JSON.parse(RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}", { "Accept" => "application/json", "Content-Type" => "application/json", "Authorization" => enc_credentials }))
-    song = [song_data['items'].first['track']['uri'], song_data['items'].first['track']['duration_ms']]
+    song_data = JSON.parse(RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
+                                          { "Accept" => "application/json", "Content-Type" => "application/json",
+                                            "Authorization" => enc_credentials }))
+    [song_data['items'].first['track']['uri'], song_data['items'].first['track']['duration_ms']]
   end
 
   def recipes_params
@@ -104,7 +106,7 @@ class RecipesController < ApplicationController
   end
 
   def spotify_urls
-   spotify_urls =  {
+    spotify_urls =  {
       categories: "https://api.spotify.com/v1/browse/categories/",
       token: "https://accounts.spotify.com/api/token",
       refresh: 'https://api.spotify.com/v1/refresh'

@@ -1,28 +1,37 @@
 <div class="screen">
   <div class="sidenav">
-  sidenav</div>
+    <div class="user-details">
+      <img src="" class='user-avatar'>
+      <h4> <%= current_user.username%> </h4>
+       <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+    </div>
+  </div>
 
   <div class="user-info">
     <h2><%= current_user.username%> Cookbook</h2>
   </div>
   <div class="recipe-grid">
     <% @recipes.each do |recipe| %>
-    <div class="recipe-card">
-              <div class="img-container">
-                <img src="<%= recipe.url %>" alt="">
-              </div>
-              <div class="recipe-content">
-                <%= recipe.title %>
-              </div>
-            </div>
+      <a href="<%=recipe_path(recipe)%>">
+        <div class="recipe-card">
+          <div class="img-container">
+            <img src="<%= recipe.url %>" alt="">
+          </div>
+          <div class="recipe-content">
+            <%= recipe.title %>
+          </div>
+        </div>
+      </a>
     <%end %>
   </div>
 
-    <div class="url-input">
-    <h2 class="url-input-header">Turn the heat up chef</h2>
-      <%= simple_form_for @recipe do |f| %>
-      <%= f.input :url %>
-      <%= f.submit "create a recipe" %>
+  <div class="url-input">
+    <div class ="input-box">
+      <h2 class="url-input-header">Turn the heat up chef</h2>
+      <%= simple_form_for @recipe do |f|  %>
+        <%= f.input :url, inline_label: 'Remember me', label: false, class: "url-field" %>
+        <%= f.submit "create a recipe", class: "submit-btn" %>
       <% end %>
     </div>
+  </div>
 </div>
