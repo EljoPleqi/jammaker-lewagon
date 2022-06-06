@@ -62,7 +62,6 @@ class RecipesController < ApplicationController
     user_hash = JSON.parse(current_user.spotify_hash)
     enc_credentials = "Bearer #{user_hash['credentials']['token']}"
     puts enc_credentials
-    raise
   #   # * get the categories
   #   categories = RestClient::Request.new(
   #   {
