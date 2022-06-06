@@ -35,7 +35,6 @@ class UsersController < ApplicationController
     enc_credentials = "Basic  #{Base64.strict_encode64("#{ENV['SPOTIFY_CLIENT_ID']}:#{ENV['SPOTIFY_CLIENT_SECRET']}")}"
     # * retrieve user from the database
     user_hash = JSON.parse(user.spotify_hash)
-    access_token = user_hash['credentials']['refresh_token']
     # * get spotify urls
     refresh_token = user_hash['credentials']['refresh_token']
     spotify_urls = spotify_urls()
