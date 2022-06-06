@@ -43,23 +43,24 @@ class RecipesController < ApplicationController
     # TODO: calculate the total duration of all the songs inside the songs array
     playlist_time = 0
     # * looping until the total playlist time reaches the total preptime
-    until playlist_time >= prep_time
+    until playlist_time == prep_time + 2 ||  playlist_time == prep_time - 2
       # TODO: loop logic
       song = fetch_songs
       playlist_time += song[1] / 60_000 unless song.nil?
-      songs.push(song[0])
+      songs.push(song[0]) unless songs.include?(song[0])
     end
     # * CREATE THE PLAYLIST
 
     spotify_user = RSpotify::User.new(JSON.parse(current_user.spotify_hash))
     playlist = spotify_user.create_playlist!("Jammaker-#{playlist_name}")
+    Playlist.create(spotify_playlist_id: playlist.id, recipe_id: @recipe.id)
     playlist.add_tracks!(songs)
   end
 
   def fetch_songs
-    # * get the categories
     user_hash = JSON.parse(current_user.spotify_hash)
     enc_credentials = "Bearer #{user_hash['credentials']['token']}"
+    # * get the categories
   #   categories = RestClient::Request.new(
   #   {
   #     url: spotify_urls[:categories],
@@ -89,7 +90,6 @@ class RecipesController < ApplicationController
 
 
     song_data = JSON.parse(RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}", { "Accept" => "application/json", "Content-Type" => "application/json", "Authorization" => enc_credentials }))
-
     song = [song_data['items'].first['track']['uri'], song_data['items'].first['track']['duration_ms']]
   end
 
