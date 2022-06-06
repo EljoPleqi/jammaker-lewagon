@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     else # * IF USER EXISTS GET NEW ACCESS TOKEN
       user = User.find_by(email: spotify_user.email)
       user_hash = fetch_access(user)
+      puts user_hash
+      puts user['spotify_hash']
       sign_in User.find_by(email: spotify_user.email)
       user.update("spotify_hash" => user_hash.to_json)
     end
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
         JSON.parse(response.body)
       when 200
         new_cred = JSON.parse(response.body.as_json)
-        user_hash["credentials"]['token'] = new_cred['access_token']
+        user_hash["credentials"]['token'] = new_cred[:access_token]
       else
         fail "Invalid response #{response.as_json} received."
       end
