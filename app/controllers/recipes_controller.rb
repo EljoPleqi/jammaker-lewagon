@@ -102,9 +102,9 @@ class RecipesController < ApplicationController
     ).execute do |response, _request, _result|
       case response.code
       when 400
-        puts JSON.parse(response.body)
+        eJSON.parse(response.body)
       when 200
-        puts "line 106"
+        # puts "line 106"
         playlist_response = JSON.parse(response.body.as_json)
       else
         fail "Invalid response #{response.as_json} received."

@@ -19,7 +19,7 @@
             <%= link_to "Messages", "#", class: "nav-link" %>
           </li>
           <li class="nav-item dropdown">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Action", "#", class: "dropdown-item" %>
               <%= link_to "Another action", "#", class: "dropdown-item" %>
@@ -31,13 +31,6 @@
             <li ><a class="nav" href="#">ABOUT US</a></li>
             <li ><a class="nav" href="#">PRICING</a>
             <li ><a class="nav" href="">WHY JAM MAKER?</a></li>
-            <div class = "dark-btn">
-              <%= image_tag('Spotify_Icon_RGB_White.png', class: 'icon') %>
-              <%= link_to 'Sign in with Spotify', '/auth/spotify', method: :post, class: "link-text" %>
-            </div>
-            <li class="nav-item">
-              <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-            </li>
           </div>
         <% end %>
       </ul>
