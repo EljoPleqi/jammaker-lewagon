@@ -1,0 +1,42 @@
+<div class="screen_show">
+  <div class="left">
+    <div class="recipe-details">
+      <h2> <%= @recipe.title %> </h2>
+      <div class="details-subdiv"><p> <%= @recipe.preptime %> mins</p>
+      <%if @recipe.favorite  %>
+        <p>favorited</p>
+      <% else  %>
+       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add as favorite</button></div>
+     <% end %>
+
+    </div>
+
+    <div class="instrunctions-container">
+      <% @instructions.each do |instruction|%>
+        <div class="recipe-instruction-card">
+          <span class="badge font-48"> <%= @instructions.index(instruction) + 1%></span>
+          <div class="instruction-content">
+            <%= instruction.content %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="center">
+    <div><%= image_tag('cow.png', class: 'icon') %></div>
+    <div class="timer-bar"><div class="timer-bar color" style="height:78%"></div></div>
+    <div><%= image_tag('burger.png', class: 'icon') %></div>
+  </div>
+    <div class="right">
+      <div class="user-details">
+        <img src="<%= current_user.avatar %>" class='user-avatar'>
+        <div class="text-info">
+          <div class="username"> <%= current_user.username%> </div>
+            <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
+          </div>
+      </div>
+    <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
+      width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </div>
+  </div>
