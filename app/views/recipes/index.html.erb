@@ -1,6 +1,9 @@
 <div class="screen">
   <div class="sidenav">
     <%# LOGO %>
+    <div>
+     <%= image_tag('Frame.png', class: "logo")%>
+    </div>
 
     <%# NAVS %>
     <div class="d-flex align-items-start">
@@ -9,18 +12,21 @@
         <button class="nav-link" id="v-pills-favorites-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favorites" type="button" role="tab" aria-controls="v-pills-favorites" aria-selected="false">Favorites</button>
       </div>
     </div>
-
-    <%# LOG OUT AND USER INFORMATION%>
-    <div class="user-details">
-      <img src="" class='user-avatar'>
-      <h4> <%= current_user.username%> </h4>
-       <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+    <div class="user-details_dashboard">
+      <img src="<%= current_user.avatar %>" class='user-avatar'>
+      <div class="text-info">
+        <div class="username"> <%= current_user.username%> </div>
+          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "logout-text" %>
+        </div>
     </div>
   </div>
 
+    <%# LOG OUT AND USER INFORMATION%>
+
+
 
   <div class="user-info">
-    <h2><%= current_user.username%> Cookbook</h2>
+    <h2><%= current_user.username%>'s Cookbook</h2>
   </div>
   <div class="recipe-grid">
 
@@ -59,7 +65,7 @@
 
   <div class="url-input">
     <div class ="input-box">
-      <h2 class="url-input-header">Turn the heat up chef</h2>
+      <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
       <%= simple_form_for @recipe do |f|  %>
         <%= f.input :url, inline_label: 'Remember me', label: false, class: "url-field" %>
         <%= f.submit "create a recipe", class: "submit-btn" %>

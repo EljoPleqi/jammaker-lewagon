@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
     @recipe.user = current_user
     @recipe.save
     @instructions = Instruction.parse(@recipe.steps)
+    @instructions.shift
     @instructions.each do |instruction|
       Instruction.create(content: instruction, recipe: @recipe)
     end
@@ -89,7 +90,7 @@ class RecipesController < ApplicationController
 
     # TODO: retrieve the playlists from the category repsonse
     # * get the category url
-    category_url =  "https://api.spotify.com/v1/browse/categories/pop"
+    category_url = "https://api.spotify.com/v1/browse/categories/pop"
 
     # * get the playlist url from the category
     # playlist_response = RestClient.get("#{category_url}/playlists",
@@ -108,9 +109,9 @@ class RecipesController < ApplicationController
     ).execute do |response, _request, _result|
       case response.code
       when 400
-        puts JSON.parse(response.body)
+        eJSON.parse(response.body)
       when 200
-        puts "line 106"
+        # puts "line 106"
         playlist_response = JSON.parse(response.body.as_json)
       else
         fail "Invalid response #{response.as_json} received."

@@ -9,21 +9,39 @@ a {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 0.75fr 3fr;
+  grid-template-columns: 0.5fr 2fr;
   grid-template-rows: 0.4fr repeat(3, 1fr);
 }
-.user-details {
+
+.sidenav {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 20rem;
-  height: 7.5rem;
-  background: #fff;
-}
-.sidenav {
+  justify-content: space-between;
   background-color: #f7f6f3;
   grid-area: 1 / 1 / 5 / 2;
+  .user-details_dashboard {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0rem 3rem;
+    height: 7.5rem;
+    background: #fff;
+    .user-avatar {
+      height: 4rem;
+      width: 4rem;
+      border-radius: 50%;
+    }
+    .text-info {
+      .username {
+        font-size: 1.2rem;
+        color: #252118;
+      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 .user-info {
   margin-top: 2rem;
@@ -39,7 +57,6 @@ a {
   grid-column-gap: 2rem;
   grid-row-gap: 0.8rem;
   grid-area: 2 / 2 / 4 / 3;
-  align-items: center;
   justify-items: center;
   border: 1px dashed #4a4230;
   border-bottom: none;
@@ -50,12 +67,14 @@ a {
 }
 
 .recipe-card {
-  width: 24rem;
+  width: 28rem;
   height: 8rem;
   background-color: #fff;
   display: flex;
   gap: 1rem;
-  box-shadow: (0px 4px 4px rgba(0, 0, 0, 0.25));
+  box-shadow: 0px 0px 1px rgba(15, 23, 42, 0.06),
+    0px 20px 25px -5px rgba(15, 23, 42, 0.1),
+    0px 10px 10px -5px rgba(15, 23, 42, 0.04);
 }
 
 .img-container {
@@ -66,10 +85,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  object-fit: cover;
+  // object-fit: cover;
   img {
     height: 8rem;
     max-width: 8rem;
+    object-fit: cover;
   }
 }
 .recipe-content {
@@ -92,13 +112,16 @@ a {
   justify-content: center;
   grid-area: 4 / 2 / 5 / 3;
   z-index: 1;
+  padding: 2rem;
 }
 .new_recipe {
   display: flex;
   justify-content: center;
   width: 100%;
   input {
-    height: 4.6875rem;
+    height: 3rem;
+    border-radius: 0;
+    border-style: none;
   }
   .submit-btn {
     border-style: none;
