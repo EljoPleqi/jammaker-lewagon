@@ -2,14 +2,13 @@
   <div class="left">
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
-      <div class="details-subdiv"><p> <%= @recipe.preptime %></p>
+      <div class="details-subdiv"><p> <%= @recipe.preptime %> mins</p>
       <%if @recipe.favorite  %>
         <p>favorited</p>
       <% else  %>
        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add as favorite</button></div>
      <% end %>
-      <div class="details-subdiv"><p> <%= @recipe.preptime %> mins</p>
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Save recipe</button></div>
+
     </div>
 
     <div class="instrunctions-container">
