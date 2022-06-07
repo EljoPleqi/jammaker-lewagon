@@ -83,7 +83,7 @@ class RecipesController < ApplicationController
 
     # TODO: retrieve the playlists from the category repsonse
     # * get the category url
-    category_url =  "https://api.spotify.com/v1/browse/categories/pop"
+    category_url = "https://api.spotify.com/v1/browse/categories/pop"
 
     # * get the playlist url from the category
     # playlist_response = RestClient.get("#{category_url}/playlists",
