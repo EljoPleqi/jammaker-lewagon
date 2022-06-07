@@ -19,7 +19,6 @@ class UsersController < ApplicationController
       sign_in User.find_by(email: spotify_user.email)
       user.update("spotify_hash" => user_hash.to_json)
     end
-
     # * -----
     redirect_to recipes_path # * redirect to the dashboard
   end
