@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get '/auth/spotify/callback', to: 'users#spotify'
   post '/auth/spotify/callback', to: 'users#spotify'
-  resources :recipes, only: [ :show, :index, :create, :destroy ] do
+  resources :recipes, only: [ :show, :index, :create, :destroy, :update ] do
     resources :instructions, only: [ :new, :create ]
   end
 
