@@ -2,7 +2,7 @@
   <div class="left">
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
-      <div class="details-subdiv"><p> <%= @recipe.preptime %></p>
+      <div class="details-subdiv"><p> <%= @recipe.preptime %> mins</p>
       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Save recipe</button></div>
     </div>
     <div class="instrunctions-container">
@@ -17,13 +17,17 @@
     </div>
   </div>
 
-  <div class="center">center</div>
+  <div class="center">
+  <div><%= image_tag('cow.png', class: 'icon') %></div>
+  <div class="timer-bar"></div>
+  <div><%= image_tag('burger.png', class: 'icon') %></div>
+</div>
   <div class="right">
     <div class="user-details">
       <img src="<%= current_user.avatar %>" class='user-avatar'>
       <div class="text-info">
         <div class="username"> <%= current_user.username%> </div>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "logout-text" %>
+          <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
         </div>
     </div>
    <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"

@@ -116,7 +116,9 @@ a {
   justify-content: center;
   width: 100%;
   input {
-    height: 4.6875rem;
+    height: 3rem;
+    border-radius: 0;
+    border-style: none;
   }
   .submit-btn {
     border-style: none;
