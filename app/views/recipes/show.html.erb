@@ -1,3 +1,5 @@
+
+
 <div class="d-grid gap-2 d-md-flex justify-content-md-end me-2">
 <button id="button" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
@@ -47,12 +49,38 @@ Save recipe</button>
   </div>
 </div>
 
+<div id="countdown"> </div>
+<button class="btn btn-success" onclick="countDownStart()">Start Recipe</button>
 
 
- <div class="container">
-    <div class="row justify-content-center mt-5 mb-2">
-      <h2>Recipe timer!</h2>
-    </div>
-    <div class="row justify-content-center border rounded-pill" id="countdown">
+<script type="text/javascript">
+let minInterval = <%= @recipe.preptime %> -1;
+let secInterval = 60;
+let min_ = minInterval;
+let sec_ = secInterval;
+let counter = <%= @recipe.preptime %> -1;
 
-    </div>
+
+function countDownStart(){
+
+  const timer = setInterval(() => {
+    if( min_ <= -1) {
+      min_ = minInterval;
+
+    }
+     document.getElementById("countdown").innerHTML = min_ +":"+sec_--+" Min";
+    //document.getElementById("countdown").innerHTML = sec_--;
+
+    if (sec_ <= -1) {
+       console.log (sec_);
+       min_--;
+       sec_ = secInterval;
+    }
+    counter--;
+    console.log (counter);
+    if (counter < 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+}
+</script>
