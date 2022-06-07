@@ -26,6 +26,9 @@ a:hover {
     width: 1rem;
     background: #cbd5e1;
     border-radius: 11px;
+    .color {
+      background: linear-gradient(180deg, #fc413b 0%, #febc2b 100%), #cbd5e1;
+    }
   }
 }
 .right {
