@@ -30,7 +30,7 @@
 </div>
   <div class="right">
     <div class="user-details">
-      <img src="<%= current_user.avatar %>" class='user-avatar'>
+      <%= image_tag(current_user.avatar, class: 'user-avatar') %>
       <div class="text-info">
         <div class="username"> <%= current_user.username%> </div>
           <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
