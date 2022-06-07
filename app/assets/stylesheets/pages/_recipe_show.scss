@@ -31,7 +31,6 @@ a:hover {
 .right {
   grid-area: 1 / 3 / 2 / 4;
   display: flex;
-  margin-left: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -135,4 +134,20 @@ a:hover {
 
 .badge {
   background-color: #60b158;
+}
+@media screen and (max-width: 1200px) {
+  .screen_show {
+    padding: 2rem;
+  }
+  .instrunctions-container {
+    width: 100%;
+  }
+  .recipe-instruction-card {
+    width: 99%;
+  }
+  .text-info {
+    .logout-text {
+      font-size: 0.7rem;
+    }
+  }
 }
