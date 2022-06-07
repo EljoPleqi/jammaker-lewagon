@@ -47,12 +47,12 @@ Save recipe</button>
   </div>
 </div>
 
-<%
-=begin%>
- console.log("Get ready!")
-setTimeout(() => {
-  console.log("Hey, your recipe is done!")
-}, preptime * 1000);
-console.log("Ready to eat!")
-<%
-=end%>
+
+
+ <div class="container">
+    <div class="row justify-content-center mt-5 mb-2">
+      <h2>Recipe timer!</h2>
+    </div>
+    <div class="row justify-content-center border rounded-pill" id="countdown">
+
+    </div>
