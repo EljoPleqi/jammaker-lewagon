@@ -1,5 +1,13 @@
 <div class="screen">
   <div class="sidenav">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tab-pane" type="button" role="tab" aria-controls="all-tab-pane" aria-selected="true">All Recipes</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites-tab-pane" type="button" role="tab" aria-controls="favorites-tab-pane" aria-selected="false">Favorites</button>
+      </li>
+    </ul>
     <div class="user-details">
       <img src="" class='user-avatar'>
       <h4> <%= current_user.username%> </h4>
@@ -11,18 +19,40 @@
     <h2><%= current_user.username%> Cookbook</h2>
   </div>
   <div class="recipe-grid">
-    <% @recipes.each do |recipe| %>
-      <a href="<%=recipe_path(recipe)%>">
-        <div class="recipe-card">
-          <div class="img-container">
-            <img src="<%= recipe.url %>" alt="">
-          </div>
-          <div class="recipe-content">
-            <%= recipe.title %>
-          </div>
-        </div>
-      </a>
-    <%end %>
+
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <% current_user.recipes.each do |recipe| %>
+          <a href="<%=recipe_path(recipe)%>">
+            <div class="recipe-card">
+              <div class="img-container">
+                <img src="<%= recipe.url %>" alt="">
+              </div>
+              <div class="recipe-content">
+                <%= recipe.title %>
+              </div>
+            </div>
+          </a>
+        <%end %>
+
+      </div>
+      <div class="tab-pane fade" id="favorites-tab-pane" role="tabpanel" aria-labelledby="favorites-tab" tabindex="0">
+        <% current_user.recipes.favorited.each do |recipe| %>
+          <a href="<%=recipe_path(recipe)%>">
+            <div class="recipe-card">
+              <div class="img-container">
+                <img src="<%= recipe.url %>" alt="">
+              </div>
+              <div class="recipe-content">
+                <%= recipe.title %>
+              </div>
+            </div>
+          </a>
+        <%end %>
+
+      </div>
+    </div>
+
   </div>
 
   <div class="url-input">

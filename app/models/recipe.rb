@@ -3,6 +3,8 @@ class Recipe < ApplicationRecord
   belongs_to :user
   has_many :instructions
   has_many :playlists
+  scope :favorited, -> { where(favorite: true) }
+
 
   def self.scraper(recipe)
     # 1. We get the HTML page content
