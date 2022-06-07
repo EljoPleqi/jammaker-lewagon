@@ -69,99 +69,78 @@ class RecipesController < ApplicationController
   def fetch_songs
     user_hash = JSON.parse(current_user.spotify_hash)
     enc_credentials = "Bearer #{user_hash['credentials']['token']}"
-    puts enc_credentials
-  #   # * get the categories
-  #   categories = RestClient::Request.new(
-  #   {
-  #     url: spotify_urls[:categories],
-  #     method: "GET",
-  #     headers: {"Accept" => "application/json", "Content-Type" => "application/json", "Authorization" => enc_credentials },
-  #   }
-  # ).execute do |response, _request, _result|
-  #     case response.code
-  #     when 400
-  #       [:error, as_json(response)]
-  #     when 200
-  #       categories = JSON.parse(response.body.as_json)
-  #     else
-  #       fail "Invalid response #{response.as_json} received."
-  #     end
-  # end
+    headers = { "Accept" => "application/json",
+                "Content-Type" => "application/json",
+                "Authorization" => enc_credentials }
+    # * get the categories
+    categories = RestClient::Request.new({  url: spotify_urls[:categories],
+                                            method: "GET",
+                                            headers: headers }).execute do |response, _request, _result|
+                                              case response.code
+                                              when 400
+                                                [:error, as_json(response)]
+                                              when 200
+                                                categories = JSON.parse(response.body)
+                                              else
+                                                fail "Invalid response #{response.as_json} received."
+                                              end
+                                            end
 
-    # TODO: retrieve the playlists from the category repsonse
-    # * get the category url
-    category_url = "https://api.spotify.com/v1/browse/categories/pop"
+    # * get the a random category url
+    category_url = categories["categories"]['items'][rand(10)]['href']
 
     # * get the playlist url from the category
-    # playlist_response = RestClient.get("#{category_url}/playlists",
-    #                                   { "Accept" => "application/json",
-    #                                     "Content-Type" => "application/json",
-    #                                     "Authorization" => enc_credentials })
-    #                                     puts playlist_response
 
- playlist_response = RestClient::Request.new(
-      {
-        url: "#{category_url}/playlists",
-        method: "GET",
-        headers: { "Accept" => "application/json",
-                                        "Content-Type" => "application/json",
-                                        "Authorization" => enc_credentials }      }
-    ).execute do |response, _request, _result|
-      case response.code
-      when 400
-        eJSON.parse(response.body)
-      when 200
-        # puts "line 106"
-        playlist_response = JSON.parse(response.body.as_json)
-      else
-        fail "Invalid response #{response.as_json} received."
-      end
-    end
+    # ! ---- USING RECURSION TO GUARD FROM RANDOM API 404 ----
 
+    fetch_songs if RestClient::Request.new({ url: "#{category_url}/playlists",
+                                             method: "GET",
+                                             headers: headers }).execute.code == 404
+
+    # ! ------------------------------------------------------
+
+    playlist_response = RestClient::Request.new({ url: "#{category_url}/playlists",
+                                                  method: "GET",
+                                                  headers: headers }).execute do |response, _request, _result|
+                                                    case response.code
+                                                    when 400
+                                                      JSON.parse(response.body)
+                                                    when 200
+                                                      playlist_response = JSON.parse(response.body)
+                                                    else
+                                                      fail "Invalid response #{response.as_json} received."
+                                                    end
+                                                  end
 
     playlist_url =  playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
-    song_response = RestClient::Request.new(
-      {
-        url: playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
-        method: "GET",
-        headers: { "Accept" => "application/json",
-                                        "Content-Type" => "application/json",
-                                        "Authorization" => enc_credentials }      }
-    ).execute do |response, _request, _result|
-      case response.code
-      when 400
-        puts JSON.parse(response.body)
-      when 200
-        puts "line 127"
-        playlist_response = JSON.parse(response.body.as_json)
-      else
-        fail "Invalid response #{response.as_json} received."
-      end
-    end
 
-    # RestClient.get(playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
-    #                                 { "Accept" => "application/json",
-    #                                   "Content-Type" => "application/json",
-    #                                   "Authorization" => enc_credentials })
-    # song_data = JSON.parse(song_response)
-    [song_response['items'].first['track']['uri'], song_response['items'].first['track']['duration_ms']]
+    # * get the song url from the playlist
+    song_response = RestClient::Request.new({ url: playlist_url + "/tracks?&limit=1&offset=#{rand(5)}",
+                                              method: "GET",
+                                              headers: headers }).execute do |response, _request, _result|
+                                                case response.code
+                                                when 400
+                                                  puts JSON.parse(response.body)
+                                                when 200
+                                                  puts "line 127"
+                                                  song_response = JSON.parse(response.body)
+                                                else
+                                                  fail "Invalid response #{response.as_json} received."
+                                                end
+                                              end
+
+    [song_response['items'].first['track']['uri'], song_response['items'].first['track']['duration_ms']] # * <---- return song
   end
 
   def recipes_params
     params.require(:recipe).permit(:url)
   end
 
-  def store_user_cred
-    { access_token: spotify_user.credentials['token'],
-      refresh_token: spotify_user.credentials['refresh_token'],
-      time_of_creation: Time.now }
+  def spotify_urls
+    spotify_urls = {
+      categories: "https://api.spotify.com/v1/browse/categories?limit=10&offset=5",
+      token: "https://accounts.spotify.com/api/token",
+      refresh: 'https://api.spotify.com/v1/refresh'
+    }
   end
-
-  # def spotify_urls
-  #   spotify_urls =  {
-  #     categories: "https://api.spotify.com/v1/browse/categories/",
-  #     token: "https://accounts.spotify.com/api/token",
-  #     refresh: 'https://api.spotify.com/v1/refresh'
-  #   }
-  # end
 end

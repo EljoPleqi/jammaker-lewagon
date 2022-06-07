@@ -11,11 +11,13 @@ a {
   display: grid;
   grid-template-columns: 0.5fr 2fr;
   grid-template-rows: 0.4fr repeat(3, 1fr);
+  overflow: hidden;
 }
 
 .sidenav {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   background-color: #f7f6f3;
   grid-area: 1 / 1 / 5 / 2;
@@ -51,21 +53,27 @@ a {
   justify-content: center;
 }
 .recipe-grid {
-  display: grid;
-  overflow: scroll;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 2rem;
-  grid-row-gap: 0.8rem;
   grid-area: 2 / 2 / 4 / 3;
-  justify-items: center;
+  overflow-y: scroll;
   border: 1px dashed #4a4230;
   border-bottom: none;
   border-top-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 4rem 4rem;
+  padding: 2rem 4rem 1rem 4rem;
   margin: 0rem 4rem;
-}
 
+  .grid-inside {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 0.8rem;
+    grid-area: 2 / 2 / 4 / 3;
+    justify-content: center;
+  }
+}
+.recipe-grid::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 .recipe-card {
   width: 28rem;
   height: 8rem;

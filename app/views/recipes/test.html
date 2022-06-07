@@ -2,12 +2,10 @@
   <div class="left">
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
-      <div class="details-subdiv">
-      <p> <%= @recipe.preptime %> mins</p>
+      <div class="details-subdiv"><p> <%= @recipe.preptime %> mins</p>
       <%if @recipe.favorite  %>
-        <p>favorited</p></div>
+        <p>favorited</p>
       <% else  %>
-<!-- Button trigger modal -->
        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add as favorite</button></div>
       <% end %>
     </div>
@@ -24,7 +22,7 @@
   </div>
   <div class="center">
     <div><%= image_tag('cow.png', class: 'icon') %></div>
-    <div class="timer-bar"><div class="timer-bar color" style="height:75%"></div></div>
+    <div class="timer-bar"><div class="timer-bar color" style="height:78%"></div></div>
     <div><%= image_tag('burger.png', class: 'icon') %></div>
   </div>
     <div class="right">
@@ -42,6 +40,7 @@
 </div>
 
 
+<!-- Button trigger modal -->
 
 
 <!-- Modal -->

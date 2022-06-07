@@ -1,49 +1,102 @@
 <div class="screen">
   <div class="sidenav">
-    <div>
-     <%= image_tag('Frame.png', class: "logo")%>
-    </div>
+    <div><%= image_tag('Frame.png', class: "logo")%></div>
     <%# NAVS %>
     <div class="d-flex align-items-start">
-      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link" id="v-pills-all-tab" data-bs-toggle="pill" data-bs-target="#v-pills-all" type="button" role="tab" aria-controls="v-pills-all" aria-selected="true">All Recipes</button>
-        <button class="nav-link" id="v-pills-favorites-tab" data-bs-toggle="pill" data-bs-target="#v-pills-favorites" type="button" role="tab" aria-controls="v-pills-favorites" aria-selected="false">Favorites</button>
+      <div
+        class="nav flex-column nav-pills me-3"
+        id="v-pills-tab"
+        role="tablist"
+        aria-orientation="vertical"
+      >
+        <button
+          class="nav-link active"
+          id="all-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#all-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="all-tab-pane"
+          aria-selected="true"
+        >
+          All Recipes
+        </button>
+        <button
+          class="nav-link"
+          id="favorites-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#favorites-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="favorites-tab-pane"
+          aria-selected="false"
+        >
+          Favorites
+        </button>
       </div>
     </div>
     <div class="user-details_dashboard">
-      <img src="<%= current_user.avatar %>" class='user-avatar'>
+      <img src="<%= current_user.avatar %>" class="user-avatar" />
       <div class="text-info">
-        <div class="username"> <%= current_user.username%> </div>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "logout-text" %>
-        </div>
+        <div class="username"><%= current_user.username%></div>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete,
+        class: "logout-text" %>
+      </div>
     </div>
   </div>
   <div class="user-info">
     <h2><%= current_user.username%>'s Cookbook</h2>
   </div>
   <div class="recipe-grid">
-    <% @recipes.each do |recipe| %>
-      <a href="<%=recipe_path(recipe)%>">
-        <div class="recipe-card">
-          <div class="img-container">
-            <img src="<%= recipe.url %>" alt="">
-          </div>
-          <div class="recipe-content">
-            <%= recipe.title %>
-          </div>
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="all-tab-pane"
+        role="tabpanel"
+        aria-labelledby="home-tab"
+        tabindex="0"
+      >
+        <div class="grid-inside">
+          <% current_user.recipes.each do |recipe| %>
+          <a href="<%=recipe_path(recipe)%>">
+            <div class="recipe-card">
+              <div class="img-container">
+                <img src="<%= recipe.url %>" alt="" />
+              </div>
+              <div class="recipe-content"><%= recipe.title %></div>
+            </div>
+          </a>
+          <%end %>
         </div>
-      </a>
-    <%end %>
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="favorites-tab-pane"
+      role="tabpanel"
+      aria-labelledby="favorites-tab"
+      tabindex="0"
+    >
+      <div class="grid-inside">
+        <% current_user.recipes.favorited.each do |recipe| %>
+        <a href="<%=recipe_path(recipe)%>">
+          <div class="recipe-card">
+            <div class="img-container">
+              <img src="<%= recipe.url %>" alt="" />
+            </div>
+            <div class="recipe-content"><%= recipe.title %></div>
+          </div>
+        </a>
+        <%end %>
+      </div>
+    </div>
   </div>
-
   <div class="url-input">
-    <div class ="input-box">
+    <div class="input-box">
       <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
-      <%= simple_form_for @recipe do |f|  %>
-
-        <%= f.input :url, inline_label: 'Remember me', label: false, class: "url-field" %>
-        <%= f.submit "create a recipe", class: "submit-btn" %>
-      <% end %>
+      <%= simple_form_for @recipe do |f| %> <%= f.input :url, inline_label:
+      'Remember me', label: false, class: "url-field" %> <%= f.submit "create a
+      recipe", class: "submit-btn" %> <% end %>
     </div>
   </div>
 </div>
