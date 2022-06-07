@@ -1,10 +1,8 @@
 <div class="screen">
   <div class="sidenav">
-    <%# LOGO %>
     <div>
      <%= image_tag('Frame.png', class: "logo")%>
     </div>
-
     <%# NAVS %>
     <div class="d-flex align-items-start">
       <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -20,53 +18,29 @@
         </div>
     </div>
   </div>
-
-    <%# LOG OUT AND USER INFORMATION%>
-
-
-
   <div class="user-info">
     <h2><%= current_user.username%>'s Cookbook</h2>
   </div>
   <div class="recipe-grid">
-
-    <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane show active fade" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab" tabindex="0">
-        <% current_user.recipes.each do |recipe| %>
-          <a href="<%=recipe_path(recipe)%>">
-            <div class="recipe-card">
-              <div class="img-container">
-                <img src="<%= recipe.url %>" alt="">
-              </div>
-              <div class="recipe-content">
-                <%= recipe.title %>
-              </div>
-            </div>
-          </a>
-        <%end %>
-
-      </div>
-      <div class="tab-pane fade" id="v-pills-favorites" role="tabpanel" aria-labelledby="v-pills-favorites-tab" tabindex="0">
-        <% current_user.recipes.favorited.each do |recipe| %>
-          <a href="<%=recipe_path(recipe)%>">
-            <div class="recipe-card">
-              <div class="img-container">
-                <img src="<%= recipe.url %>" alt="">
-              </div>
-              <div class="recipe-content">
-                <%= recipe.title %>
-              </div>
-            </div>
-          </a>
-        <%end %>
-      </div>
-    </div>
+    <% @recipes.each do |recipe| %>
+      <a href="<%=recipe_path(recipe)%>">
+        <div class="recipe-card">
+          <div class="img-container">
+            <img src="<%= recipe.url %>" alt="">
+          </div>
+          <div class="recipe-content">
+            <%= recipe.title %>
+          </div>
+        </div>
+      </a>
+    <%end %>
   </div>
 
   <div class="url-input">
     <div class ="input-box">
       <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
       <%= simple_form_for @recipe do |f|  %>
+
         <%= f.input :url, inline_label: 'Remember me', label: false, class: "url-field" %>
         <%= f.submit "create a recipe", class: "submit-btn" %>
       <% end %>

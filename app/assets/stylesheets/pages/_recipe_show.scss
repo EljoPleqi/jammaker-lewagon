@@ -8,9 +8,9 @@ a:hover {
 .screen_show {
   width: 100vw;
   height: 100vh;
-  padding: 2rem 4rem;
+  padding: 2rem;
   display: grid;
-  grid-template-columns: 2.5fr 0.25fr 1.5fr;
+  grid-template-columns: 2fr 0.5fr 1.5fr;
 }
 .left {
   grid-area: 1 / 1 / 2 / 2;
