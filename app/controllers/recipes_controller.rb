@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
     @recipe.user = current_user
     @recipe.save
     @instructions = Instruction.parse(@recipe.steps)
+    @instructions.shift
     @instructions.each do |instruction|
       Instruction.create(content: instruction, recipe: @recipe)
     end
