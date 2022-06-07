@@ -3,8 +3,13 @@
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
       <div class="details-subdiv"><p> <%= @recipe.preptime %></p>
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Save recipe</button></div>
+      <%if @recipe.favorite  %>
+        <p>favorited</p>
+      <% else  %>
+       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add as favorite</button></div>
+     <% end %>
     </div>
+
     <div class="instrunctions-container">
       <% @instructions.each do |instruction|%>
         <div class="recipe-instruction-card">
@@ -40,12 +45,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h1 class="Modal-heading" id="modalLabel">Do you want to save this masterpiece?</h1>
+        <h1 class="Modal-heading" id="modalLabel">Do you want to favorite this masterpiece?</h1>
 
       </div>
       <div class="modal-footer">
         <button class="btn btn-danger">Do not save</button>
-        <button  class="btn btn-success">Save recipe</button>
+        <%= link_to 'Add to favorites', recipe_path(@recipe), method: :patch, class:"btn btn-success" %>
       </div>
     </div>
   </div>

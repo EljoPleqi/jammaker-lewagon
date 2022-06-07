@@ -27,6 +27,12 @@ class RecipesController < ApplicationController
     @instructions = @recipe.instructions
   end
 
+  def update
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(favorite: true)
+    redirect_to recipe_path(@recipe)
+  end
+
   def destroy
     @recipes.destroy
     redirect_to recipes_path
