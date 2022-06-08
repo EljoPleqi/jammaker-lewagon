@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
   has_many :instructions
   has_many :playlists
   scope :favorited, -> { where(favorite: true) }
-
+  validates :category, inclusion:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
 
   def self.scraper(recipe)
     # 1. We get the HTML page content
@@ -34,5 +34,10 @@ class Recipe < ApplicationRecord
     @recipe.steps = @steps
     @recipe.url = @image
     return @recipe
+  end
+
+  def percent_of(*)
+    t = Timer.new
+    t.start.to_f / @preptime.to_f * 100
   end
 end

@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   # require 'rest-client'
-  # before_action :spotify_urls, only: [:fetch_songs]
+  before_action :spotify_urls, only: [:fetch_songs]
+  before_action :return_header, only: [:fetch_songs, :fetch_category_url]
 
   def index
     @recipes = Recipe.all
@@ -17,6 +18,7 @@ class RecipesController < ApplicationController
     @instructions.each do |instruction|
       Instruction.create(content: instruction, recipe: @recipe)
     end
+
     create_playlist(@recipe.preptime.to_i, @recipe.title)
     redirect_to recipe_path(@recipe)
   end
@@ -49,12 +51,13 @@ class RecipesController < ApplicationController
     # TODO: calculate the total duration of all the songs inside the songs array
     playlist_time = 0
     # * looping until the total playlist time reaches the total preptime
-    until playlist_time.to_f >= prep_time.to_f
+    until playlist_time >= prep_time
       # TODO: loop logic
       song = fetch_songs
       playlist_time += song[1] / 60_000 unless song.nil?
-      puts "playlist time#{playlist_time} prep time #{prep_time}"
+      puts "playlist time: #{playlist_time} prep time: #{prep_time}"
       songs.push(song[0]) unless songs.include?(song[0])
+
     end
     # * CREATE THE PLAYLIST
 
@@ -66,42 +69,25 @@ class RecipesController < ApplicationController
     playlist.add_tracks!(songs)
   end
 
-  def fetch_songs
-    user_hash = JSON.parse(current_user.spotify_hash)
-    enc_credentials = "Bearer #{user_hash['credentials']['token']}"
-    headers = { "Accept" => "application/json",
-                "Content-Type" => "application/json",
-                "Authorization" => enc_credentials }
+  def fetch_category_url
     # * get the categories
-    categories = RestClient::Request.new({  url: spotify_urls[:categories],
-                                            method: "GET",
-                                            headers: headers }).execute do |response, _request, _result|
-                                              case response.code
-                                              when 400
-                                                [:error, as_json(response)]
-                                              when 200
-                                                categories = JSON.parse(response.body)
-                                              else
-                                                fail "Invalid response #{response.as_json} received."
-                                              end
-                                            end
+    # categories = ["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
+    "https://api.spotify.com/v1/browse/categories/#{recipes_params[:category]}"
+  end
 
-    # * get the a random category url
-    category_url = categories["categories"]['items'][rand(10)]['href']
-
+  def fetch_songs
+    hdrs = return_header
     # * get the playlist url from the category
+    playlist_response = fetch_category_url
+    if RestClient::Request.new({ url: "#{playlist_response}/playlists",
+                                 method: "GET",
+                                 headers: hdrs }).execute.code == 404
+      playlist_response = fetch_category_url
+    end
 
-    # ! ---- USING RECURSION TO GUARD FROM RANDOM API 404 ----
-
-    fetch_songs if RestClient::Request.new({ url: "#{category_url}/playlists",
-                                             method: "GET",
-                                             headers: headers }).execute.code == 404
-
-    # ! ------------------------------------------------------
-
-    playlist_response = RestClient::Request.new({ url: "#{category_url}/playlists",
-                                                  method: "GET",
-                                                  headers: headers }).execute do |response, _request, _result|
+    RestClient::Request.new({ url: "#{playlist_response}/playlists",
+                              method: "GET",
+                              headers: hdrs }).execute do |response, _request, _result|
                                                     case response.code
                                                     when 400
                                                       JSON.parse(response.body)
@@ -111,13 +97,12 @@ class RecipesController < ApplicationController
                                                       fail "Invalid response #{response.as_json} received."
                                                     end
                                                   end
-
     playlist_url =  playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
 
     # * get the song url from the playlist
     song_response = RestClient::Request.new({ url: playlist_url + "/tracks?&limit=1&offset=#{rand(5)}",
                                               method: "GET",
-                                              headers: headers }).execute do |response, _request, _result|
+                                              headers: hdrs }).execute do |response, _request, _result|
                                                 case response.code
                                                 when 400
                                                   puts JSON.parse(response.body)
@@ -133,7 +118,7 @@ class RecipesController < ApplicationController
   end
 
   def recipes_params
-    params.require(:recipe).permit(:url)
+    params.require(:recipe).permit(:url, :category)
   end
 
   def spotify_urls
@@ -142,5 +127,13 @@ class RecipesController < ApplicationController
       token: "https://accounts.spotify.com/api/token",
       refresh: 'https://api.spotify.com/v1/refresh'
     }
+  end
+
+  def return_header
+    user_hash = JSON.parse(current_user.spotify_hash)
+    enc_credentials = "Bearer #{user_hash['credentials']['token']}"
+    hdrs = { "Accept" => "application/json",
+                "Content-Type" => "application/json",
+                "Authorization" => enc_credentials }
   end
 end

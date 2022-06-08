@@ -94,9 +94,11 @@
   <div class="url-input">
     <div class="input-box">
       <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
-      <%= simple_form_for @recipe do |f| %> <%= f.input :url, inline_label:
-      'Remember me', label: false, class: "url-field" %> <%= f.submit "create a
-      recipe", class: "submit-btn" %> <% end %>
+      <%= simple_form_for @recipe do |f| %>
+      <%= f.input :category, collection:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"], label: false, class: "dropdown-btn", selected: 'Music Vibe' %>
+      <%= f.input :url, label: false, class: "url-field" %>
+      <%= f.submit "add new recipe", class: "submit-btn" %>
+      <% end %>
     </div>
   </div>
 </div>

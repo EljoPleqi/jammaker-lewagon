@@ -1,4 +1,4 @@
-<div class="screen_show">
+<div data-controller="timer" data-timer-prep-time-value="<%= @recipe.preptime %>" class="screen_show">
   <div class="left">
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
@@ -21,11 +21,13 @@
           </div>
         </div>
       <% end %>
+      <%# <div id="countdown" data-timer-target="countdown">hello</div>
+      <button class="btn btn-success" data-action="click->timer#startCountdown">Start Recipe</button> %>
     </div>
   </div>
   <div class="center">
     <div><%= image_tag('cow.png', class: 'icon') %></div>
-    <div class="timer-bar"><div class="timer-bar color" style="height:75%"></div></div>
+    <div class="timer-bar"><div class="timer-bar color" style="height:20%"></div></div>
     <div><%= image_tag('burger.png', class: 'icon') %></div>
   </div>
     <div class="right">
@@ -36,10 +38,13 @@
             <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
           </div>
       </div>
-    <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
-      width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+          <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
+          width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+          </iframe>
+      </div>
     </div>
   </div>
+
 </div>
 
 
