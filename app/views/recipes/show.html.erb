@@ -20,8 +20,8 @@
           </div>
         </div>
       <% end %>
-      <div id="countdown" data-timer-target="countdown">hello</div>
-      <button class="btn btn-success" data-action="click->timer#startCountdown">Start Recipe</button>
+      <%# <div id="countdown" data-timer-target="countdown">hello</div>
+      <button class="btn btn-success" data-action="click->timer#startCountdown">Start Recipe</button> %>
     </div>
   </div>
   <div class="center">
@@ -37,8 +37,6 @@
             <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
           </div>
       </div>
-
-        <div class="click-listener" data-controller="webplayer">
           <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
           width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
           </iframe>
