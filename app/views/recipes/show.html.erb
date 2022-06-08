@@ -35,6 +35,7 @@
             <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
           </div>
       </div>
+      <div data-controller="webplayer"></div>
     <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
       width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
@@ -62,26 +63,3 @@
     </div>
   </div>
 </div>
-<%# Timer %>
-<script type="text/javascript">
-let minInterval = <%= @recipe.preptime%> -1;
-let secInterval = 60;
-let min_ = minInterval;
-let sec_ = secInterval;
-let t=setInterval("countDownStart()",1000);
-function countDownStart()
-{
-  if( min_ <= -1) {
-       min_ = minInterval;
-   }
-   document.getElementById("countdown").innerHTML = min_ +":"+sec_--+" Min";
-  //document.getElementById("countdown").innerHTML = sec_--;
- if (sec_ <= -1) {
-  console.log (sec_);
-  min_--;
-  sec_ = secInterval;
-}
-}
-</script>
-<%# <title>Recipe timer</title>
-<div id="countdown"> </div> %>
