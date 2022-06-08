@@ -21,7 +21,7 @@ class Recipe < ApplicationRecord
     @preptime = hour.present? ? hour + min : min
     @title = doc.search('.headline').text.strip
     @ingredients = doc.search('.ingredients-section').text.strip
-    @steps = doc.search('.instructions-section').text.strip
+    @steps = doc.search('.instructions-section').text.strip.slice!(0..1)
     if doc.search('.lead-media img').present?
       @image = doc.search('.lead-media img').attribute("src").value
     else
@@ -34,5 +34,10 @@ class Recipe < ApplicationRecord
     @recipe.steps = @steps
     @recipe.url = @image
     return @recipe
+  end
+
+  def percent_of(*)
+    t = Timer.new
+    t.start.to_f / @preptime.to_f * 100
   end
 end

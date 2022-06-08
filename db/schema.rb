@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_06_07_100903) do
 
   create_table "playlists", force: :cascade do |t|
     t.string "spotify_playlist_id"
-    t.bigint "recipe_id", null: false
+    t.bigint "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipe_id"], name: "index_playlists_on_recipe_id"

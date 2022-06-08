@@ -1,4 +1,4 @@
-<div class="screen_show">
+<div data-controller="timer" data-timer-prep-time-value="<%= @recipe.preptime %>" class="screen_show">
   <div class="left">
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
@@ -20,6 +20,8 @@
           </div>
         </div>
       <% end %>
+      <div id="countdown" data-timer-target="countdown">hello</div>
+      <button class="btn btn-success" data-action="click->timer#startCountdown">Start Recipe</button>
     </div>
   </div>
   <div class="center">
@@ -39,6 +41,7 @@
       width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
     </div>
   </div>
+
 </div>
 
 
@@ -62,26 +65,3 @@
     </div>
   </div>
 </div>
-<%# Timer %>
-<script type="text/javascript">
-let minInterval = <%= @recipe.preptime%> -1;
-let secInterval = 60;
-let min_ = minInterval;
-let sec_ = secInterval;
-let t=setInterval("countDownStart()",1000);
-function countDownStart()
-{
-  if( min_ <= -1) {
-       min_ = minInterval;
-   }
-   document.getElementById("countdown").innerHTML = min_ +":"+sec_--+" Min";
-  //document.getElementById("countdown").innerHTML = sec_--;
- if (sec_ <= -1) {
-  console.log (sec_);
-  min_--;
-  sec_ = secInterval;
-}
-}
-</script>
-<%# <title>Recipe timer</title>
-<div id="countdown"> </div> %>
