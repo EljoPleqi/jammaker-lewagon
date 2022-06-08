@@ -161,7 +161,6 @@ a {
 .flex-form {
   display: flex;
 }
-
 @media screen and (max-width: 1200px) {
   .screen_show {
     padding: 2rem;
@@ -187,5 +186,38 @@ a {
 
   .logout-text {
     font-size: 0.7rem;
+  }
+  .nav-link.active {
+    position: absolute;
+    top: 85px;
+    background-color: #60b158 !important;
+  }
+  #favorites-tab {
+    position: absolute;
+    top: 125px;
+  }
+  img-container {
+    height: 100%;
+    width: 8rem;
+    max-width: 8rem;
+    background-color: #6e6549;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // object-fit: cover;
+    img {
+      height: 8rem;
+      max-width: 8rem;
+      object-fit: cover;
+    }
+  }
+  .recipe-content {
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .recipe-card:active {
+    transform: translateY(5px);
   }
 }
