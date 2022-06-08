@@ -57,7 +57,7 @@
         tabindex="0"
       >
         <div class="grid-inside">
-          <% current_user.recipes.each do |recipe| %>
+          <% current_user.recipes.reverse.each do |recipe| %>
           <a href="<%=recipe_path(recipe)%>">
             <div class="recipe-card">
               <div class="img-container">
@@ -78,7 +78,7 @@
       tabindex="0"
     >
       <div class="grid-inside">
-        <% current_user.recipes.favorited.each do |recipe| %>
+        <% current_user.recipes.favorited.reverse.each do |recipe| %>
         <a href="<%=recipe_path(recipe)%>">
           <div class="recipe-card">
             <div class="img-container">

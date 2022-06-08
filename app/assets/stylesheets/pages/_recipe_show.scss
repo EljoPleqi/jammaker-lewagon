@@ -11,9 +11,10 @@ a:hover {
   padding: 2rem;
   display: grid;
   grid-template-columns: 2fr 0.5fr 1.5fr;
+  grid-template-rows: repeat(2, 1fr);
 }
 .left {
-  grid-area: 1 / 1 / 2 / 2;
+  grid-area: 1 / 1 / 3 / 2;
   overflow-x: auto;
   overflow-y: visible;
   display: flex;
@@ -22,7 +23,7 @@ a:hover {
   gap: 2rem;
 }
 .center {
-  grid-area: 1 / 2 / 2 / 3;
+  grid-area: 1 / 2 / 3 / 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,13 +39,14 @@ a:hover {
   }
 }
 .right {
-  grid-area: 1 / 3 / 2 / 4;
+  grid-area: 1 / 3 / 3 / 4;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
   .user-details {
+    grid-area: 1 / 3 / 2 / 4;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -70,13 +72,30 @@ a:hover {
   }
 }
 .recipe-details {
+  grid-area: 1 / 1 / 2 / 2;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  color: #4a4230;
+  justify-content: space-between;
+  padding: 2rem 4rem;
   width: 100%;
   height: 7.5rem;
+  background: #fff;
+}
+.btn-favorite {
+  background-color: #febc2b;
+}
+.heart-active {
+  color: #fc413b;
+}
+.btn-favorite:hover {
+  color: #252118;
+  text-decoration: underline dashed;
+  .fa-heart {
+    color: #fc413b;
+    transform: translateY(-0.2rem);
+    transform: scale(1.05);
+    transition: all 0.3s ease-out;
+  }
 }
 .details-subdiv {
   display: flex;
@@ -107,8 +126,9 @@ a:hover {
   gap: 2rem;
   border-radius: 9px;
   align-items: center;
-  justify-content: center;
-/*   .badge span:last-child {
+  padding: 0rem 2rem;
+
+  /*   .badge span:last-child {
     display: none;
   }
   &:hover {
@@ -176,7 +196,33 @@ a:hover {
     }
   }
 }
+.fa-caret-square-left {
+  color: #252118;
+}
 
 .transparent-card {
   opacity: 0.3;
+}
+
+.modal-content {
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .modal-header {
+    border: none;
+  }
+  .modal-footer {
+    border: none;
+    .btn-danger {
+      background-color: #fc413b;
+      border: none;
+      color: white;
+    }
+    .btn-success {
+      background-color: #60b158;
+      border: none;
+      color: white;
+    }
+  }
 }

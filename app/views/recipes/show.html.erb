@@ -3,12 +3,12 @@
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
       <div class="details-subdiv">
-      <p> <%= @recipe.preptime %> mins</p>
+      <p><i class="far fa-clock"></i> <%= @recipe.preptime %> mins </p>
       <%if @recipe.favorite  %>
-        <p>favorited</p></div>
+       <p> <i class="fas fa-heart heart-active"></i> favourited</p></div>
       <% else  %>
 <!-- Button trigger modal -->
-       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add as favorite</button></div>
+       <button type="button" class="btn btn-favorite" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-heart"></i> Add as favourite</button></div>
       <% end %>
     </div>
     <div class="instrunctions-container">
@@ -35,7 +35,8 @@
         <img src="<%= current_user.avatar %>" class='user-avatar'>
         <div class="text-info">
           <div class="username"> <%= current_user.username%> </div>
-            <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
+          <span class="logout-text"><i class="fas fa-caret-square-left"></i> <%= link_to "Return to your cookbook",recipes_path  %>
+</span>
           </div>
       </div>
           <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
@@ -58,12 +59,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h1 class="Modal-heading" id="modalLabel">Do you want to favorite this masterpiece?</h1>
+        <h3 class="Modal-heading" id="modalLabel">Do you want to add this recipe to your favourites?</h3>
+        <p>Favouriting recipes provides you with a quick and easy way to find your favourite recipes in your jammaker cookbook</p>
 
       </div>
       <div class="modal-footer">
-        <button class="btn btn-danger">Do not save</button>
-        <%= link_to 'Add to favorites', recipe_path(@recipe), method: :patch, class:"btn btn-success" %>
+        <button class="btn btn-danger">Don't add to favourites</button>
+        <%= link_to 'Add to favourites', recipe_path(@recipe), method: :patch, class:"btn btn-success" %>
       </div>
     </div>
   </div>
