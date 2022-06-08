@@ -1,86 +1,104 @@
-<div class="screen_show">
-  <div class="left">
-    <div class="recipe-details">
-      <h2> <%= @recipe.title %> </h2>
-      <div class="details-subdiv"><p> <%= @recipe.preptime %> mins</p>
-      <%if @recipe.favorite  %>
-        <p>favorited</p>
-      <% else  %>
-       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add as favorite</button></div>
-      <% end %>
+<div class="screen">
+  <div class="sidenav">
+    <div><%= image_tag('Frame.png', class: "logo")%></div>
+    <%# NAVS %>
+    <div class="d-flex align-items-start">
+      <div
+        class="nav flex-column nav-pills me-3"
+        id="v-pills-tab"
+        role="tablist"
+        aria-orientation="vertical"
+      >
+        <button
+          class="nav-link active"
+          id="all-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#all-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="all-tab-pane"
+          aria-selected="true"
+        >
+          All Recipes
+        </button>
+        <button
+          class="nav-link"
+          id="favorites-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#favorites-tab-pane"
+          type="button"
+          role="tab"
+          aria-controls="favorites-tab-pane"
+          aria-selected="false"
+        >
+          Favorites
+        </button>
+      </div>
     </div>
-    <div class="instrunctions-container">
-      <% @instructions.each do |instruction|%>
-        <div class="recipe-instruction-card">
-          <span class="badge font-48"> <%= @instructions.index(instruction) + 1%></span>
-          <div class="instruction-content">
-            <%= instruction.content %>
+    <div class="user-details_dashboard">
+      <img src="<%= current_user.avatar %>" class="user-avatar" />
+      <div class="text-info">
+        <div class="username"><%= current_user.username%></div>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete,
+        class: "logout-text" %>
+      </div>
+    </div>
+  </div>
+  <div class="user-info">
+    <h2><%= current_user.username%>'s Cookbook</h2>
+  </div>
+  <div class="recipe-grid">
+    <div class="tab-content" id="myTabContent">
+      <div
+        class="tab-pane fade show active"
+        id="all-tab-pane"
+        role="tabpanel"
+        aria-labelledby="home-tab"
+        tabindex="0"
+      >
+        <div class="grid-inside">
+          <% current_user.recipes.reverse.each do |recipe| %>
+          <a href="<%=recipe_path(recipe)%>">
+            <div class="recipe-card">
+              <div class="img-container">
+                <img src="<%= recipe.url %>" alt="" />
+              </div>
+              <div class="recipe-content"><%= recipe.title %></div>
+            </div>
+          </a>
+          <%end %>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="favorites-tab-pane"
+          role="tabpanel"
+          aria-labelledby="favorites-tab"
+          tabindex="0"
+        >
+          <div class="grid-inside">
+            <% current_user.recipes.favorited.reverse.each do |recipe| %>
+            <a href="<%=recipe_path(recipe)%>">
+              <div class="recipe-card">
+                <div class="img-container">
+                  <img src="<%= recipe.url %>" alt="" />
+                </div>
+                <div class="recipe-content"><%= recipe.title %></div>
+              </div>
+            </a>
+            <%end %>
           </div>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
-  <div class="center">
-    <div><%= image_tag('cow.png', class: 'icon') %></div>
-    <div class="timer-bar"><div class="timer-bar color" style="height:78%"></div></div>
-    <div><%= image_tag('burger.png', class: 'icon') %></div>
-  </div>
-    <div class="right">
-      <div class="user-details">
-        <img src="<%= current_user.avatar %>" class='user-avatar'>
-        <div class="text-info">
-          <div class="username"> <%= current_user.username%> </div>
-            <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
-          </div>
-      </div>
-    <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
-      width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  <div class="url-input">
+    <div class="input-box">
+      <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
+      <%= simple_form_for @recipe do |f| %> <%= f.input :category,
+      collection:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"], label:
+      false, class: "dropdown-btn", selected: 'Music Vibe' %> <%= f.input :url,
+      label: false, class: "url-field" %> <%= f.submit "add new recipe", class:
+      "submit-btn" %> <% end %>
     </div>
   </div>
 </div>
-
-
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h1 class="Modal-heading" id="modalLabel">Do you want to favorite this masterpiece?</h1>
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger">Do not save</button>
-        <%= link_to 'Add to favorites', recipe_path(@recipe), method: :patch, class:"btn btn-success" %>
-      </div>
-    </div>
-  </div>
-</div>
-<%# Timer %>
-<script type="text/javascript">
-let minInterval = <%= @recipe.preptime%> -1;
-let secInterval = 60;
-let min_ = minInterval;
-let sec_ = secInterval;
-let t=setInterval("countDownStart()",1000);
-function countDownStart()
-{
-  if( min_ <= -1) {
-       min_ = minInterval;
-   }
-   document.getElementById("countdown").innerHTML = min_ +":"+sec_--+" Min";
-  //document.getElementById("countdown").innerHTML = sec_--;
- if (sec_ <= -1) {
-  console.log (sec_);
-  min_--;
-  sec_ = secInterval;
-}
-}
-</script>
-<%# <title>Recipe timer</title>
-<div id="countdown"> </div> %>
