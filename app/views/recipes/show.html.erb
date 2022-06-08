@@ -1,9 +1,9 @@
 <div data-controller="timer" data-timer-prep-time-value="<%= @recipe.preptime %>" class="screen_show">
   <div class="left">
     <div class="recipe-details">
-      <h2> <%= @recipe.title %> </h2>
+      <h3> <%= @recipe.title %> </h3>
       <div class="details-subdiv">
-      <p><i class="far fa-clock"></i> <%= @recipe.preptime %> mins </p>
+      <p><%= @recipe.preptime %> mins <i class="far fa-clock"></i>  </p>
       <%if @recipe.favorite  %>
        <p> <i class="fas fa-heart heart-active"></i> favourited</p></div>
       <% else  %>

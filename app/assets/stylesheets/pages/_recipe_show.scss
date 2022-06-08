@@ -15,8 +15,6 @@ a:hover {
 }
 .left {
   grid-area: 1 / 1 / 3 / 2;
-  overflow-x: auto;
-  overflow-y: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,7 +74,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 4rem;
+  padding: 2rem;
   width: 100%;
   height: 7.5rem;
   background: #fff;
@@ -107,6 +105,8 @@ a:hover {
   }
 }
 .instrunctions-container {
+  overflow-x: auto;
+  overflow-y: visible;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   # require 'rest-client'
   before_action :spotify_urls, only: [:fetch_songs]
-  before_action :return_header, only: [:fetch_songs, :fetch_category_url]
+  before_action :return_header, only: [:create_playlist,:fetch_songs, :fetch_category_url]
 
   def index
     @recipes = Recipe.all
@@ -60,7 +60,6 @@ class RecipesController < ApplicationController
 
     end
     # * CREATE THE PLAYLIST
-
     spotify_user = RSpotify::User.new(JSON.parse(current_user.spotify_hash))
     playlist = spotify_user.create_playlist!("Jammaker-#{playlist_name}")
     recipe_playlist = Playlist.new(spotify_playlist_id: playlist.id)
