@@ -1,4 +1,4 @@
-<div class="screen_show">
+<div data-controller="timer" data-timer-prep-time-value="<%= @recipe.preptime %>" class="screen_show">
   <div class="left">
     <div class="recipe-details">
       <h2> <%= @recipe.title %> </h2>
@@ -20,6 +20,8 @@
           </div>
         </div>
       <% end %>
+      <div id="countdown" data-timer-target="countdown">hello</div>
+      <button class="btn btn-success" data-action="click->timer#startCountdown">Start Recipe</button>
     </div>
   </div>
   <div class="center">
@@ -43,6 +45,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 
