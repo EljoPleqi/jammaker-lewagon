@@ -87,12 +87,9 @@ a {
     0px 10px 10px -5px rgba(15, 23, 42, 0.04);
 }
 .recipe-card:hover {
-  transform: translate(-2.1rem, -2ex);
+  transform: translateY(-0.2rem);
   transition: all 0.3s ease-out;
   box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.3);
-  top: -8px;
-  border: 1px solid #cccccc;
-  background-color: antiquewhite;
 }
 
 .img-container {
@@ -151,6 +148,12 @@ a {
     border-style: none;
     width: 40rem;
   }
+  .form-select {
+    background-color: #febc2b;
+    height: 3rem;
+    border-style: none;
+    border-radius: 0px;
+  }
 }
 .input-box {
   width: 100%;
@@ -161,6 +164,7 @@ a {
 .flex-form {
   display: flex;
 }
+
 @media screen and (max-width: 1200px) {
   .screen_show {
     padding: 2rem;
@@ -177,7 +181,6 @@ a {
     width: 80%;
   }
   .recipe-card {
-
   }
 
   .sidenav .user-details_dashboard {

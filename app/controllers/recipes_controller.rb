@@ -71,8 +71,8 @@ class RecipesController < ApplicationController
 
   def fetch_category_url
     # * get the categories
-    categories = ["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
-    "https://api.spotify.com/v1/browse/categories/#{categories[rand(categories.length) - 1]}"
+    # categories = ["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
+    "https://api.spotify.com/v1/browse/categories/#{recipes_params[:category]}"
   end
 
   def fetch_songs
@@ -118,7 +118,7 @@ class RecipesController < ApplicationController
   end
 
   def recipes_params
-    params.require(:recipe).permit(:url)
+    params.require(:recipe).permit(:url, :category)
   end
 
   def spotify_urls
