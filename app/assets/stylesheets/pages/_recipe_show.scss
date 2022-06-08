@@ -102,6 +102,18 @@ a:hover {
   border-radius: 9px;
   align-items: center;
   justify-content: center;
+/*   .badge span:last-child {
+    display: none;
+  }
+  &:hover {
+    .badge span:first-child {
+      display: none;
+    }
+    .badge span:last-child {
+      display: block;
+      font-size: 40px;
+    }
+  } */
 }
 
 .font-48 {
@@ -135,6 +147,12 @@ a:hover {
 
 .badge {
   background-color: #60b158;
+  width: 85px;
+  height: 85px;
+  font-size: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media screen and (max-width: 1200px) {
   .screen_show {
@@ -151,4 +169,8 @@ a:hover {
       font-size: 0.7rem;
     }
   }
+}
+
+.transparent-card {
+  opacity: 0.3;
 }

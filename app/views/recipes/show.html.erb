@@ -13,8 +13,9 @@
     </div>
     <div class="instrunctions-container">
       <% @instructions.each do |instruction|%>
-        <div class="recipe-instruction-card">
-          <span class="badge font-48"> <%= @instructions.index(instruction) + 1%></span>
+        <div class="recipe-instruction-card" data-controller="opacity" data-action="click->opacity#change mouseenter->opacity#hover mouseleave->opacity#hover">
+          <div class="badge"> <span class="" data-opacity-target="number"> <%= @instructions.index(instruction) + 1%> </span><span data-opacity-target="check" class="d-none"><i class="fas fa-check"></i></span></div>
+
           <div class="instruction-content">
             <%= instruction.content %>
           </div>
@@ -62,26 +63,3 @@
     </div>
   </div>
 </div>
-<%# Timer %>
-<script type="text/javascript">
-let minInterval = <%= @recipe.preptime%> -1;
-let secInterval = 60;
-let min_ = minInterval;
-let sec_ = secInterval;
-let t=setInterval("countDownStart()",1000);
-function countDownStart()
-{
-  if( min_ <= -1) {
-       min_ = minInterval;
-   }
-   document.getElementById("countdown").innerHTML = min_ +":"+sec_--+" Min";
-  //document.getElementById("countdown").innerHTML = sec_--;
- if (sec_ <= -1) {
-  console.log (sec_);
-  min_--;
-  sec_ = secInterval;
-}
-}
-</script>
-<%# <title>Recipe timer</title>
-<div id="countdown"> </div> %>
