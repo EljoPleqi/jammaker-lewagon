@@ -18,6 +18,7 @@ class RecipesController < ApplicationController
     @instructions.each do |instruction|
       Instruction.create(content: instruction, recipe: @recipe)
     end
+
     create_playlist(@recipe.preptime.to_i, @recipe.title)
     redirect_to recipe_path(@recipe)
   end
@@ -50,12 +51,13 @@ class RecipesController < ApplicationController
     # TODO: calculate the total duration of all the songs inside the songs array
     playlist_time = 0
     # * looping until the total playlist time reaches the total preptime
-    until playlist_time.to_f >= prep_time.to_f
+    until playlist_time >= prep_time
       # TODO: loop logic
       song = fetch_songs
       playlist_time += song[1] / 60_000 unless song.nil?
-      puts "playlist time#{playlist_time} prep time #{prep_time}"
+      puts "playlist time: #{playlist_time} prep time: #{prep_time}"
       songs.push(song[0]) unless songs.include?(song[0])
+
     end
     # * CREATE THE PLAYLIST
 
@@ -95,7 +97,6 @@ class RecipesController < ApplicationController
                                                       fail "Invalid response #{response.as_json} received."
                                                     end
                                                   end
-
     playlist_url =  playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
 
     # * get the song url from the playlist

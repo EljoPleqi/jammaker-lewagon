@@ -35,9 +35,12 @@
             <%= link_to "<- back to the dashboard",recipes_path, class: "logout-text" %>
           </div>
       </div>
-      <div data-controller="webplayer"></div>
-    <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
-      width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+        <div class="click-listener" data-controller="webplayer">
+          <iframe  src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
+          width="100%" height="640" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+          </iframe>
+      </div>
     </div>
   </div>
 </div>
