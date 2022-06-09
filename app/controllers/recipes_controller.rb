@@ -58,7 +58,6 @@ class RecipesController < ApplicationController
       playlist_time += song[1] / 60_000 unless song.nil?
       puts "playlist time: #{playlist_time} prep time: #{prep_time}"
       songs.push(song[0]) unless songs.include?(song[0])
-
     end
     # * CREATE THE PLAYLIST
     spotify_user = RSpotify::User.new(JSON.parse(current_user.spotify_hash))
@@ -100,7 +99,7 @@ class RecipesController < ApplicationController
     playlist_url =  playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
 
     # * get the song url from the playlist
-    song_response = RestClient::Request.new({ url: playlist_url + "/tracks?&limit=1&offset=#{rand(5)}",
+    song_response = RestClient::Request.new({ url: playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
                                               method: "GET",
                                               headers: hdrs }).execute do |response, _request, _result|
                                                 case response.code

@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
   has_many :instructions
   has_many :playlists
   scope :favorited, -> { where(favorite: true) }
-  validates :genre, inclusion:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
+  validates :genre, inclusion: ["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
 
   def self.scraper(recipe)
     # 1. We get the HTML page content
