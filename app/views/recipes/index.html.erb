@@ -1,10 +1,11 @@
 <div class="screen">
   <div class="sidenav">
-    <div><%= image_tag('Frame.png', class: "logo")%></div>
+    <div class="twos-thirds-nav">
+    <%= image_tag('Frame.png', class: "logo")%>
     <%# NAVS %>
-    <div class="d-flex align-items-start">
+
       <div
-        class="nav flex-column nav-pills me-3"
+        class="nav flex-column nav-pills"
         id="v-pills-tab"
         role="tablist"
         aria-orientation="vertical"
@@ -19,7 +20,7 @@
           aria-controls="all-tab-pane"
           aria-selected="true"
         >
-          All Recipes
+          <i class="fas fa-book-open"></i>  All Recipes
         </button>
         <button
           class="nav-link"
@@ -31,7 +32,7 @@
           aria-controls="favorites-tab-pane"
           aria-selected="false"
         >
-          Favorites
+          <i class="fas fa-heart"></i>  Favorites
         </button>
       </div>
     </div>
@@ -64,8 +65,8 @@
                 <img src="<%= recipe.url %>" alt="" />
               </div>
               <div class="recipe-content">
-                <h4><%= recipe.title %></h4>
-                <div class="badge bg-success"> <%= recipe.category %>
+                <p><%= recipe.title %></p>
+                <div class="badge bg-tab"> <%= recipe.category %>
                 </div>
               </div>
             </div>
@@ -87,7 +88,11 @@
                 <div class="img-container">
                   <img src="<%= recipe.url %>" alt="" />
                 </div>
-                <div class="recipe-content"><%= recipe.title %></div>
+                  <div class="recipe-content">
+                    <p><%= recipe.title %></p>
+                    <div class="badge bg-tab"> <%= recipe.category %>
+                  </div>
+                  </div>
               </div>
             </a>
             <%end %>
@@ -97,7 +102,10 @@
     </div>
   <div class="url-input">
     <div class="input-box">
+     <div class="input-text">
       <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
+      <p>Paste your recipe link below and lets start cooking</p>
+     </div>
       <%= simple_form_for @recipe do |f| %> <%= f.input :genre,
       collection:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"], label:
       false, class: "dropdown-btn", selected: 'Music Vibe' %> <%= f.input :url,

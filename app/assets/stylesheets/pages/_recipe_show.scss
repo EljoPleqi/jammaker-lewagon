@@ -57,15 +57,31 @@ a:hover {
       width: 4rem;
       border-radius: 50%;
     }
-    .text-info {
+    .text-info-user {
       .username {
         font-size: 1.2rem;
         color: #252118;
       }
+      .logout-text {
+        border: #fc413b 1px solid;
+        transition: all 0.3s ease-out;
+        .text-btn-logout-inner,
+        .fa-caret-square-left {
+          color: #fc413b;
+        }
+      }
+      .logout-text:hover {
+        background-color: #fc413b;
+        .text-btn-logout-inner,
+        .fa-caret-square-left {
+          color: #000;
+        }
+      }
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 1rem;
     }
   }
 }
@@ -74,7 +90,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 2.5rem;
   width: 100%;
   height: 7.5rem;
   background: #fff;
@@ -197,11 +213,6 @@ a:hover {
   }
   .recipe-instruction-card {
     width: 99%;
-  }
-  .text-info {
-    .logout-text {
-      font-size: 0.7rem;
-    }
   }
 }
 .fa-caret-square-left {
