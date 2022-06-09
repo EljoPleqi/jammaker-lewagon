@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   # require 'rest-client'
   before_action :spotify_urls, only: [:fetch_songs]
-  before_action :return_header, only: [:create_playlist,:fetch_songs, :fetch_category_url]
+  before_action :return_header, only: [:create_playlist,:fetch_songs, :fetch_genre_url]
 
   def index
     @recipes = Recipe.all
@@ -69,20 +69,20 @@ class RecipesController < ApplicationController
     playlist.add_tracks!(songs)
   end
 
-  def fetch_category_url
+  def fetch_genre_url
     # * get the categories
     # categories = ["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
-    "https://api.spotify.com/v1/browse/categories/#{recipes_params[:category]}"
+    "https://api.spotify.com/v1/browse/categories/#{recipes_params[:genre]}"
   end
 
   def fetch_songs
     hdrs = return_header
     # * get the playlist url from the category
-    playlist_response = fetch_category_url
+    playlist_response = fetch_genre_url
     if RestClient::Request.new({ url: "#{playlist_response}/playlists",
                                  method: "GET",
                                  headers: hdrs }).execute.code == 404
-      playlist_response = fetch_category_url
+      playlist_response = fetch_genre_url
     end
 
     RestClient::Request.new({ url: "#{playlist_response}/playlists",
@@ -118,7 +118,7 @@ class RecipesController < ApplicationController
   end
 
   def recipes_params
-    params.require(:recipe).permit(:url, :category)
+    params.require(:recipe).permit(:url, :genre)
   end
 
   def spotify_urls
