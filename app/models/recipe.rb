@@ -27,7 +27,7 @@ class Recipe < ApplicationRecord
     else
       @image = doc.search('video').attribute('poster').value
     end
-    # @image = if @image.present? ? @image : @image2
+    # @image = if @image.present? ? @image : @image
     @recipe.title = @title
     @recipe.preptime = @preptime
     @recipe.ingredients = @ingredients

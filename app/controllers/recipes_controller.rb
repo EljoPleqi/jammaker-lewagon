@@ -16,6 +16,7 @@ class RecipesController < ApplicationController
     @instructions = Instruction.parse(@recipe.steps)
     @instructions.shift
     @instructions.each do |instruction|
+      instruction.gsub!(/\A\s\d*\s*/, "")
       Instruction.create(content: instruction, recipe: @recipe)
     end
 
