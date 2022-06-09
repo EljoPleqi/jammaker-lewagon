@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   # require 'rest-client'
-  before_action :spotify_urls, only: [:fetch_songs]
-  before_action :return_header, only: [:create_playlist,:fetch_songs, :fetch_genre_url]
+  before_action :spotify_urls, only: [:fetch_song]
+  before_action :return_header, only: [:create_playlist,:fetch_song, :fetch_genre_url]
 
   def index
     @recipes = Recipe.all
@@ -54,10 +54,14 @@ class RecipesController < ApplicationController
     # * looping until the total playlist time reaches the total preptime
     until playlist_time >= prep_time
       # TODO: loop logic
-      song = fetch_songs
-      playlist_time += song[1] / 60_000 unless song.nil?
+      song = fetch_song
       puts "playlist time: #{playlist_time} prep time: #{prep_time}"
-      songs.push(song[0]) unless songs.include?(song[0])
+
+      next if songs.include?(song[0])
+
+      songs.push(song[0])
+      playlist_time += song[1] / 60_000
+      puts "line 62 songs array length -> #{songs.size}"
     end
     # * CREATE THE PLAYLIST
     spotify_user = RSpotify::User.new(JSON.parse(current_user.spotify_hash))
@@ -74,7 +78,7 @@ class RecipesController < ApplicationController
     "https://api.spotify.com/v1/browse/categories/#{recipes_params[:genre]}"
   end
 
-  def fetch_songs
+  def fetch_song
     hdrs = return_header
     # * get the playlist url from the category
     playlist_response = fetch_genre_url
@@ -96,10 +100,17 @@ class RecipesController < ApplicationController
                                                       fail "Invalid response #{response.as_json} received."
                                                     end
                                                   end
-    playlist_url =  playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
+    playlist_url = playlist_response['playlists']['items'][rand(playlist_response.length) - 1]['href']
 
     # * get the song url from the playlist
-    song_response = RestClient::Request.new({ url: playlist_url + "/tracks?&limit=1&offset=#{rand(20)}",
+    total_songs = RestClient::Request.new({ url: playlist_url + "/tracks?",
+                                            method: "GET",
+                                            headers: hdrs }).execute do |response, _request, _result|
+                                              x = JSON.parse(response.body)
+                                              x['total']
+                                            end
+
+    song_response = RestClient::Request.new({ url: playlist_url + "/tracks?&limit=1&offset=#{rand(total_songs)}",
                                               method: "GET",
                                               headers: hdrs }).execute do |response, _request, _result|
                                                 case response.code
