@@ -14,14 +14,15 @@
     <div class="instrunctions-container">
       <% @instructions.each do |instruction|%>
         <div class="recipe-instruction-card" data-controller="opacity" data-action="click->opacity#change mouseenter->opacity#hover mouseleave->opacity#hover">
-          <div class="badge instruction-badge" > <span class="" data-opacity-target="number"> <%= @instructions.index(instruction) + 1%> </span><span data-opacity-target="check" class="d-none"><i class="fas fa-check"></i></span></div>
-
+          <div class="badge-holder">
+            <div class="badge instruction-badge" >
+              <span class="" data-opacity-target="number"> <%= @instructions.index(instruction) + 1%> </span><span data-opacity-target="check" class="d-none"><i class="fas fa-check"></i></span></div>
+            </div>
           <div class="instruction-content">
             <%= instruction.content %>
           </div>
         </div>
       <% end %>
-
     </div>
   </div>
   <div class="center" >
