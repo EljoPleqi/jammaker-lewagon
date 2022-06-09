@@ -4,7 +4,7 @@ class Recipe < ApplicationRecord
   has_many :instructions
   has_many :playlists
   scope :favorited, -> { where(favorite: true) }
-  validates :category, inclusion:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
+  validates :genre, inclusion:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"]
 
   def self.scraper(recipe)
     # 1. We get the HTML page content
@@ -27,12 +27,14 @@ class Recipe < ApplicationRecord
     else
       @image = doc.search('video').attribute('poster').value
     end
+    @category = doc.search('.breadcrumbs__item')[2].text.strip
     # @image = if @image.present? ? @image : @image
     @recipe.title = @title
     @recipe.preptime = @preptime
     @recipe.ingredients = @ingredients
     @recipe.steps = @steps
     @recipe.url = @image
+    @recipe.category = @category
     return @recipe
   end
 

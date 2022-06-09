@@ -63,7 +63,11 @@
               <div class="img-container">
                 <img src="<%= recipe.url %>" alt="" />
               </div>
-              <div class="recipe-content"><%= recipe.title %></div>
+              <div class="recipe-content">
+                <h4><%= recipe.title %></h4>
+                <div class="badge bg-success"> <%= recipe.category %>
+                </div>
+              </div>
             </div>
           </a>
           <%end %>
@@ -94,7 +98,7 @@
   <div class="url-input">
     <div class="input-box">
       <h2 class="url-input-header">Turn the heat up chef 🔥</h2>
-      <%= simple_form_for @recipe do |f| %> <%= f.input :category,
+      <%= simple_form_for @recipe do |f| %> <%= f.input :genre,
       collection:["pop", 'punk', 'rock', 'hiphop', 'chill', "indie_alt"], label:
       false, class: "dropdown-btn", selected: 'Music Vibe' %> <%= f.input :url,
       label: false, class: "url-field" %> <%= f.submit "add new recipe", class:
