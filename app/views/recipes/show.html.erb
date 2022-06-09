@@ -41,7 +41,7 @@
         </div>
 
 
-          <iframe  data-action="mouseleave->timer#startCountdown" src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
+          <iframe  data-action="mouseleave->timer#startCountdown:once" src="<%="https://open.spotify.com/embed/playlist/#{@recipe.playlists[0]['spotify_playlist_id']}?utm_source=generator&theme=0" %>"
           width="100%" height="640"  frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
           </iframe>
 
