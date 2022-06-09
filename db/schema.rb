@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_08_143100) do
+ActiveRecord::Schema.define(version: 2022_06_09_100027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_143100) do
 
   create_table "playlists", force: :cascade do |t|
     t.string "spotify_playlist_id"
-    t.bigint "recipe_id", null: false
+    t.bigint "recipe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipe_id"], name: "index_playlists_on_recipe_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_143100) do
     t.string "steps"
     t.boolean "favorite", default: false
     t.string "category"
+    t.string "genre"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
