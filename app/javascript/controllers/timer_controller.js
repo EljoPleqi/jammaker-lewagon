@@ -21,7 +21,7 @@ export default class extends Controller {
       if (min_ <= -1) {
         min_ = minInterval;
       }
-      this.countdownTarget.innerHTML = min_ + ":" + sec_-- + " Min";
+      // this.countdownTarget.innerHTML = min_ + ":" + sec_-- + " Min";
       if (sec_ <= -1) {
         min_--;
         css_++;
