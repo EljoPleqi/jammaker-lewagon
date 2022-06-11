@@ -64,6 +64,12 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+#  manage user sessions and account creation
 gem 'devise'
+#  Provide access to the spotify user auth and playlist creation
 gem 'rspotify'
 gem "omniauth-rails_csrf_protection"
+#   Cors management
+gem 'rack-cors'
+
+gem "tailwindcss-rails", "~> 2.0"

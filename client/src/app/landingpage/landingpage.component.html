@@ -1,62 +1,32 @@
+<app-header></app-header>
+<!-- HERO SECTION -->
 <div
-  class="navbar navbar-expand-sm navbar-light navbar-lewagon"
-  id="navbar_overwritten"
+  class="h-[100vh] flex flex-col justify-center bg-center"
+  [ngStyle]="{
+    'background-image':
+      'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0.4) 100%), url(https://images.unsplash.com/photo-1488116593952-937c38246bbe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1610&q=80)'
+  }"
 >
-  <div class="container-fluid">
-    <div>
-      <img src="../../assets/Frame.png" alt="" />
-    </div>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Log out", destroy_user_session_path, method: :delete,
-          class: "dropdown-item" %>
-        </li>
-        <% else %>
-        <div id="wrapper-nav">
-          <li><a class="nav" href="#">ABOUT US</a></li>
-          <li><a class="nav" href="#">PRICING</a></li>
-          <li><a class="nav" href="">WHY JAM MAKER?</a></li>
-        </div>
-        <% end %>
-      </ul>
-    </div>
+  <div class="ml-[3rem]">
+    <h1 class="text-[4rem] text-white font-bold">
+      Cook to a playlist, <br />
+      Not a timer!
+    </h1>
+    <app-spotify-button></app-spotify-button>
   </div>
 </div>
-<div class="hero">
-  <h1 class="text-3xl font-bold underline">
-    Cook to a playlist, <br />
-    Not a timer!
-  </h1>
-  <div class="button">
-    <%= image_tag('Spotify_Icon_RGB_White.png', class: 'icon') %> <%= link_to
-    'Sign in with Spotify', '/auth/spotify', method: :post, class: "link-text"%>
-  </div>
-</div>
-
-<div class="usp-container">
-  <div class="img">
-    <img
-      class="recipe-img"
-      src="https://images.unsplash.com/photo-1515516089376-88db1e26e9c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-      alt="Recipe Image"
-    />
-  </div>
-  <div class="text">
-    <h2 class="usp">As you cook, the playlist cooks right along with you.</h2>
-    <p>
+<!-- USP SECTION -->
+<div class="py-[8rem] flex gap-[3rem] px-[3rem] bg-[#fcf5e7]">
+  <img
+    src="https://images.unsplash.com/photo-1515516089376-88db1e26e9c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+    alt="Recipe Image"
+    class="w-[35rem] h-[25rem] rounded-lg"
+  />
+  <div class="flex flex-col gap-4 max-w-[40rem]">
+    <h2 class="text-3xl font-bold">
+      As you cook, the playlist cooks right along with you.
+    </h2>
+    <p class="mb-12">
       With Jammaker you will never have to think about what music to listen to
       while cooking. <br />
       An online tool that makes it easy to create playlists that last exactly as
@@ -64,47 +34,50 @@
       mid-dinner, or worrying whether they will run out of songs by the time you
       cut the cheese.
     </p>
-    <div class="dark-btn">
-      <%= image_tag('Spotify_Icon_RGB_White.png', class: 'icon') %> <%= link_to
-      'Sign in with Spotify', '/auth/spotify', method: :post, class: "link-text"
-      %>
-    </div>
+    <app-spotify-button></app-spotify-button>
   </div>
 </div>
 
-<%= render 'components/review-card' %>
+<!-- <%= render 'components/review-card' %> -->
 
-<div class="lemons-container">
-  <div class="content">
-    <h2 class="lemon-txt">
+<div
+  class="h-[80vh] flex items-center justify-center"
+  [ngStyle]="{
+    background:
+      'linear-gradient(to bottom, rgba(0, 0, 0, 0.5)0%, rgba(0, 0, 0, 0.5)100%), url(https://images.unsplash.com/photo-1587324438673-56c78a866b15?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80)'
+  }"
+>
+  <div class="flex flex-col gap-8">
+    <h2 class="text-3xl text-bold text-white text-center">
       Got too many lemon's? <br />
       Learn how to make lemonade
     </h2>
-    <form class="email-form">
-      <input
-        type="subscribe"
-        id="query"
-        name="sub"
-        placeholder="youdefinetlywantournewsletter@gmail.com"
-        class="email-input"
-      />
-      <button id="dark-btn">Subscribe</button>
-      <p class="explainer-text">
+    <form class="flex flex-col gap-3">
+      <div class="flex">
+        <input
+          type="subscribe"
+          id="query"
+          name="sub"
+          placeholder="youdefinetlywantournewsletter@gmail.com"
+          class="w-[25rem] px-4 py-3"
+        />
+        <button class="text-white bg-[#0f172a] px-4">Subscribe</button>
+      </div>
+      <p class="text-white text-center">
         Subscribe to our newsletter to follow the progress on jammaker
       </p>
     </form>
   </div>
 </div>
 
-<div class="footer">
-  <div class="content2">
-    <div>
-      <h2 class="title-footer">JAMMAKER</h2>
-      <h3 class="h3-footer">Your jam. Your playlist</h3>
-    </div>
-    <p class="names">
-      Created by Boyan, Eljo, Fabio, Same, Sofiane with
-      <i class="fas fa-heart heart-active"></i> for Le Wagon web-dev batch #890
-    </p>
+<div
+  class="h-[30vh] bg-black text-white flex flex-col justify-between py-8 pl-[3rem]"
+>
+  <div>
+    <img src="../../assets/Vector.png" alt="" class="h-[4rem]" />
   </div>
+  <p class="names">
+    Created by Boyan, Eljo, Fabio, Same, Sofiane with
+    <i class="fas fa-heart heart-active"></i> for Le Wagon web-dev batch #890
+  </p>
 </div>

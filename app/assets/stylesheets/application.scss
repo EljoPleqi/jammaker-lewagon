@@ -7,6 +7,9 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // Your CSS partials
 @import "components/index";
