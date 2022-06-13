@@ -7,7 +7,12 @@ import { HeaderComponent } from './landingpage/header/header.component';
 import { SpotifyButtonComponent } from './landingpage/spotify-button/spotify-button.component';
 
 @NgModule({
-  declarations: [AppComponent, LandingpageComponent, HeaderComponent, SpotifyButtonComponent],
+  declarations: [
+    AppComponent,
+    LandingpageComponent,
+    HeaderComponent,
+    SpotifyButtonComponent,
+  ],
   imports: [BrowserModule],
   providers: [],
   bootstrap: [AppComponent],

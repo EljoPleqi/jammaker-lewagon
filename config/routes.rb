@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
-  get '/auth/spotify/callback', to: 'users#spotify'
-  post '/auth/spotify/callback', to: 'users#spotify'
+  get '/auth/spotify/callback', to: 'users#token'
+  post '/auth/spotify', to: 'users#find_user'
+  get '/login', to: 'users#login'
+  # post '/auth/spotify', to: 'users#spotify'
   resources :recipes, only: [ :show, :index, :create, :destroy, :update ] do
     resources :instructions, only: [ :new, :create ]
   end

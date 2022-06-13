@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import axios from 'axios';
 
 @Component({
   selector: 'app-spotify-button',
@@ -10,9 +11,9 @@ export class SpotifyButtonComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login() {
-    fetch('http://localhost:3000/auth/spotify/callback').then((data) =>
-      console.log(data)
-    );
+  async login() {
+    await axios
+      .get('http://localhost:3000/login')
+      .then((res) => console.log(res));
   }
 }

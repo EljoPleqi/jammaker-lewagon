@@ -1,26 +1,53 @@
 class UsersController < ApplicationController
   require 'rest-client'
 
-  def spotify
-    spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-    # TODO: save a copy of the spotify_user into a hash
-    # TODO: make a user Instance with the saved hash
-    # * -----
-    spotify_user_hash = spotify_user.to_json
+  # * redirect to spotify for the access code
+  def login
+    query_params = {
+      client_id: ENV['SPOTIFY_CLIENT_ID'],
+      scope: ['user-read-email', 'user-read-private', 'playlist-modify-public',
+              'playlist-modify-private', 'user-modify-playback-state',
+              'user-read-playback-state', 'streaming', 'user-library-read', 'user-library-modify'].join(' '),
+      redirect_uri: 'http://localhost:3000/auth/spotify/callback',
+      response_type: "code"
+    }
+    url = "https://accounts.spotify.com/authorize"
+    redirect_to "#{url}?#{query_params.to_query}"
+  end
+  # * Get the access token and the refresh token
 
-    if User.find_by(email: spotify_user.email).nil? # * IF USER DOES NOT EXIST CREATE USER
-      User.create!(username: spotify_user.display_name, avatar: spotify_user.images[0].url, email: spotify_user.email, password: spotify_user.id.to_s, spotify_hash: spotify_user_hash)
-      sign_in User.find_by(email: spotify_user.email)
+  def token
+    redirect_to '/' if params[:error]
+
+    # * -----
+    body = {
+      grant_type: "authorization_code",
+      code: params[:code],
+      redirect_uri: 'http://localhost:3000/auth/spotify/callback',
+      client_id: ENV['SPOTIFY_CLIENT_ID'],
+      client_secret: ENV['SPOTIFY_CLIENT_SECRET']
+    }
+    auth_response = JSON.parse(RestClient.post('https://accounts.spotify.com/api/token', body))
+    find_user(auth_response)
+  end
+
+  # * Find the user in the database
+
+  def find_user(auth_response)
+    header = { Authorization: "Bearer #{auth_response['access_token']}" }
+    spotify_user = JSON.parse(RestClient.get('https://api.spotify.com/v1/me', header))
+
+    if User.find_by(email: spotify_user['email']).nil? # * IF USER DOES NOT EXIST CREATE USER
+      User.create!(username: spotify_user['display_name'], avatar: spotify_user['images'][0]['url'], email: spotify_user['email'], password: spotify_user['id'].to_s, spotify_hash: spotify_user)
+      sign_in User.find_by(email: spotify_user['email']) # bug here
     else # * IF USER EXISTS GET NEW ACCESS TOKEN
-      user = User.find_by(email: spotify_user.email)
+      user = User.find_by(email: spotify_user['email'])
       user_hash = fetch_access(user)
-      puts user_hash
-      puts user['spotify_hash']
-      sign_in User.find_by(email: spotify_user.email)
+      sign_in User.find_by(email: spotify_user['email']) # bug here
       user.update("spotify_hash" => user_hash.to_json)
     end
     # * -----
-    redirect_to recipes_path # * redirect to the dashboard
+   redirect_to recipes_path
   end
 
   def spotify_urls
