@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpotifyButtonComponent } from './spotify-button.component';
+import { InstructionCardComponent } from './instruction-card.component';
 
-describe('SpotifyButtonComponent', () => {
-  let component: SpotifyButtonComponent;
-  let fixture: ComponentFixture<SpotifyButtonComponent>;
+describe('InstructionCardComponent', () => {
+  let component: InstructionCardComponent;
+  let fixture: ComponentFixture<InstructionCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpotifyButtonComponent ]
+      declarations: [ InstructionCardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpotifyButtonComponent);
+    fixture = TestBed.createComponent(InstructionCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

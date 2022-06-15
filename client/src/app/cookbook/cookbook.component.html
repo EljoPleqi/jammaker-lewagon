@@ -1,5 +1,17 @@
-<div class="h-[100vh] w-[100vw] grid grid-cols-cookbook">
-  <app-sidebar></app-sidebar>
-  <app-recipes></app-recipes>
-  <app-input-field></app-input-field>
+<div *ngIf="loaded; else loading">
+  <div
+    class="h-screen grid grid-cols-cookbook grid-rows-cookbook bg-[#EFECE6] gap-1"
+  >
+    <app-sidebar class="row-span-3 bg-[#f7f6f3]"></app-sidebar>
+    <app-recipes
+      class="row-span-2 overflow-auto"
+      [username]="user.username"
+      [recipes]="recipes"
+    ></app-recipes>
+    <app-input-field class="bg-[#3d3829]"></app-input-field>
+  </div>
 </div>
+
+<ng-template #loading class="flex justify-center items-center bg-[#EFECE6]">
+  <img src="../../assets/loading-bar.png" />
+</ng-template>
