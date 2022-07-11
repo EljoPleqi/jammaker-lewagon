@@ -1,16 +1,9 @@
 <p>recipes works!</p>
 
 <h1>{{ username }}'s cookbook</h1>
-<div class="grid grid-cols-recipes grid-rows-recipes h-[100%]">
-  <div *ngFor="let recipe of recipes">
-    <div class="h-[6rem] bg-white flex gap-1">
-      <img src="{{ recipe.url }}" alt="" />
-      <div class="flex flex-col">
-        <p>{{ recipe.title }}</p>
-        <span class="rounded-xl bg-green-500 text-white py-2 px-4">{{
-          recipe.category
-        }}</span>
-      </div>
-    </div>
-  </div>
+<div class="grid grid-cols-recipes grid-rows-recipes h-[100%] py-4 px-6 gap-4">
+  <app-recipe-card
+    *ngFor="let recipe of recipes"
+    [recipe]="recipe"
+  ></app-recipe-card>
 </div>

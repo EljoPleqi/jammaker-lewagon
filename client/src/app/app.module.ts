@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
@@ -14,6 +15,7 @@ import { UserInfoComponent } from './cookbook/sidebar/user-info/user-info.compon
 import { RecipeComponent } from './recipe/recipe.component';
 import { InstructionCardComponent } from './recipe/instruction-card/instruction-card.component';
 import { SpotifyPlayerComponent } from './recipe/spotify-player/spotify-player.component';
+import { RecipeCardComponent } from './cookbook/recipes/recipe-card/recipe-card.component';
 
 const routes: Routes = [
   {
@@ -43,8 +45,9 @@ const routes: Routes = [
     RecipeComponent,
     InstructionCardComponent,
     SpotifyPlayerComponent,
+    RecipeCardComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, RouterModule.forRoot(routes), HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
