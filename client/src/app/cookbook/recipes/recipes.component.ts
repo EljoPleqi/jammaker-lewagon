@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Recipe } from '../../recipe/Recipe.modal';
+import { Recipe } from '../../shared/interfaces/recipe.interface';
 
 @Component({
   selector: 'app-recipes',

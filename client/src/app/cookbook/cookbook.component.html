@@ -1,4 +1,4 @@
-<div *ngIf="loaded; else loading">
+<div *ngIf="!loading">
   <div
     class="h-screen grid grid-cols-cookbook grid-rows-cookbook bg-[#EFECE6] gap-1"
   >
@@ -8,10 +8,10 @@
       [username]="user.username"
       [recipes]="recipes"
     ></app-recipes>
-    <app-input-field class="bg-[#3d3829]"></app-input-field>
+    <div class="flex items-center justify-center bg-[#3d3829]">
+      <app-input-field class=""></app-input-field>
+    </div>
   </div>
 </div>
 
-<ng-template #loading class="flex justify-center items-center bg-[#EFECE6]">
-  <img src="../../assets/loading-bar.png" />
-</ng-template>
+<p *ngIf="loading">loading.....</p>

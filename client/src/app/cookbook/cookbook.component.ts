@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserLoginService } from '../shared/services/user-login.service';
-import { Recipe } from '../recipe/Recipe.modal';
+import { Recipe } from '../shared/interfaces/recipe.interface';
 import { Subscription } from 'rxjs';
+import { UserResponse } from '../shared/interfaces/user-response.interface';
+import { User } from '../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-cookbook',
@@ -9,19 +11,23 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./cookbook.component.css'],
 })
 export class CookbookComponent implements OnInit, OnDestroy {
-  user: any;
+  user!: User;
   recipes: Recipe[] = [];
-  loaded: boolean = false;
+  loading: boolean = true;
   userSub!: Subscription;
 
   constructor(private userService: UserLoginService) {}
 
   ngOnInit(): void {
-    //   this.userSub = this.userService.getAccessToken().subscribe(); // the subscribe here triggers the http get request and fetches the user
-    //   this.user = this.userService.user;
-    //   this.recipes = this.userService.recipes;
-    //   this.loaded = true;
-    //   console.log(this.userService.user);
+    this.loading = true;
+    this.userSub = this.userService
+      .getAccessToken()
+      .subscribe((data: UserResponse) => {
+        this.loading = false;
+        this.recipes = data.recipes;
+        this.user = data.user;
+      });
+    // the subscribe here triggers the http get request and fetches the user
   }
   ngOnDestroy(): void {
     this.userSub.unsubscribe();

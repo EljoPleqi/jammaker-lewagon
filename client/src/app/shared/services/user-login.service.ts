@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from '../../recipe/Recipe.modal';
+import { Recipe } from '../interfaces/recipe.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { UserResponse } from '../interfaces/user-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class UserLoginService {
 
     // return the data of the http get request
     return this.http
-      .get('http://localhost:3000/api/token', {
+      .get<UserResponse>('http://localhost:3000/api/token', {
         params: new HttpParams().set('code', this.code),
       })
       .pipe(map((user) => (this.user = user)));

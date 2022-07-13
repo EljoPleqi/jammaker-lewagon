@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Recipe } from '../../../recipe/Recipe.modal';
+import { Router } from '@angular/router';
+import { Recipe } from '../../../shared/interfaces/recipe.interface';
 
 @Component({
   selector: 'app-recipe-card',
@@ -8,7 +9,11 @@ import { Recipe } from '../../../recipe/Recipe.modal';
 })
 export class RecipeCardComponent implements OnInit {
   @Input() recipe!: Recipe;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  onOpenRecipe() {
+    this.router.navigate(['recipe', this.recipe.id]);
+  }
 }

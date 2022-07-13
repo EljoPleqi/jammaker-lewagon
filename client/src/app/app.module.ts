@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './appRouting.module';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -17,20 +18,6 @@ import { InstructionCardComponent } from './recipe/instruction-card/instruction-
 import { SpotifyPlayerComponent } from './recipe/spotify-player/spotify-player.component';
 import { RecipeCardComponent } from './cookbook/recipes/recipe-card/recipe-card.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: LandingpageComponent,
-  },
-  {
-    path: 'auth/spotify/callback',
-    component: CookbookComponent,
-  },
-  {
-    path: 'recipe/:id',
-    component: RecipeComponent,
-  },
-];
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +34,7 @@ const routes: Routes = [
     SpotifyPlayerComponent,
     RecipeCardComponent,
   ],
-  imports: [BrowserModule, RouterModule.forRoot(routes), HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

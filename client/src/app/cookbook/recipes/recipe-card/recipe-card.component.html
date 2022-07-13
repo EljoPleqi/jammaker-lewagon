@@ -1,6 +1,6 @@
-<div class="h-[6rem] bg-white flex gap-1">
-  <img src="{{ recipe.url }}" alt="" />
-  <div class="flex flex-col">
+<div class="recipe-card" (click)="onOpenRecipe()">
+  <img src="{{ recipe.url }}" alt="" class="img-container" />
+  <div class="flex flex-col" class="recipe-content">
     <p>{{ recipe.title }}</p>
     <span class="rounded-xl bg-green-500 text-white py-2 px-4">{{
       recipe.category

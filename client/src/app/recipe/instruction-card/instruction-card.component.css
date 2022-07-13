@@ -1,0 +1,10 @@
+.recipe-instruction-card {
+  width: 99%;
+  min-height: 9.375rem;
+  background-color: #fff;
+  display: flex;
+  gap: 2rem;
+  border-radius: 9px;
+  align-items: center;
+  padding: 2rem 0rem 2rem 2rem;
+}
