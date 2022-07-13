@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post '/auth/spotify', to: 'users#find_user'
   get 'api/login', to: 'users#login'
   get 'api/user', to: 'cookbook#return_user'
+  get 'api/recipe/:id', to: 'recipes#show'
   # post '/auth/spotify', to: 'users#spotify'
   resources :recipes, only: [ :show, :index, :create, :destroy, :update ] do
     resources :instructions, only: [ :new, :create ]

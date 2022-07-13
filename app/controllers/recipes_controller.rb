@@ -29,6 +29,15 @@ class RecipesController < ApplicationController
     # show all of the instructions for that recipes
     @recipe = Recipe.find(params[:id])
     @instructions = @recipe.instructions
+    @playlist = @recipe.playlists
+
+    # send the response to the frontend as json
+
+    response = {
+      recipe: @recipe,
+      playlist: @playlist[0]
+    }
+    render json: response
   end
 
   def update
@@ -41,6 +50,7 @@ class RecipesController < ApplicationController
     @recipes.destroy
     redirect_to recipes_path
   end
+
 
   private
 
